@@ -2,12 +2,13 @@
   <div class="container">
     <h1>{{ section.settings.custom_text_title }}</h1>
     {% for block in section.blocks %}
-      {% if block.settings.button_text != blank %}
-        <button>{{ block.settings.button_text }}</button>
+      {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+        <button href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</button>
       {% endif %}
     {% endfor %}
   </div>
 </div>
+
 {% schema %}
 {
   "name": "Alex Block",
@@ -29,6 +30,11 @@
           "id": "button_text",
           "type": "textarea",
           "label": "Button Text"
+        },
+        {
+          "id": "button_url",
+          "type": "url",
+          "label": "Button link"
         }
       ]
     }

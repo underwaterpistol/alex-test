@@ -1,0 +1,60 @@
+{% assign base_class = 'alex-test-block' %}
+
+<div
+  class="{{ base_class }}"
+  style="background-image: url('{{ section.settings.background_image.src | img_url: 'master' }}');"
+>
+  <div class="container">
+    <h1>{{ section.settings.custom_text_title }}</h1>
+    {% for block in section.blocks %}
+      {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+        <a href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</a>
+      {% else %}
+        <a>{{ block.settings.button_text }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Alex Block",
+  "settings": [
+    {
+      "id": "custom_text_title",
+      "type": "text",
+      "label": "Text box heading",
+      "default": "Title"
+    },
+    {
+      "id": "background_image",
+      "type": "image_picker",
+      "label": "Background image"
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "name": "Button",
+      "type": "button",
+      "settings": [
+        {
+          "id": "button_text",
+          "type": "textarea",
+          "label": "Button Text"
+        },
+        {
+          "id": "button_url",
+          "type": "url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alex Block"
+    }
+  ]
+}
+{% endschema %}

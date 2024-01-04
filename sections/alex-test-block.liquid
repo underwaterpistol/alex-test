@@ -1,9 +1,16 @@
-<div class="alex-test-block">
+{% assign base_class = 'alex-test-block' %}
+
+<div
+  class="{{ base_class }}"
+  style="background-image: url('{{ section.settings.background_image.src | img_url: 'master' }}');"
+>
   <div class="container">
     <h1>{{ section.settings.custom_text_title }}</h1>
     {% for block in section.blocks %}
       {% if block.settings.button_text != blank and block.settings.button_url != blank %}
-        <button href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</button>
+        <a href="{{ block.settings.button_url }}">{{ block.settings.button_text }}</a>
+      {% else %}
+        <a>{{ block.settings.button_text }}</a>
       {% endif %}
     {% endfor %}
   </div>
@@ -18,6 +25,11 @@
       "type": "text",
       "label": "Text box heading",
       "default": "Title"
+    },
+    {
+      "id": "background_image",
+      "type": "image_picker",
+      "label": "Background image"
     }
   ],
   "max_blocks": 2,

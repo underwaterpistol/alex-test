@@ -1,0 +1,42 @@
+<div class="alex-test-block">
+  <div class="container">
+    <h1>{{ section.settings.custom_text_title }}</h1>
+    {% for block in section.blocks %}
+      {% if block.settings.button_text != blank %}
+        <button>{{ block.settings.button_text }}</button>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Alex Block",
+  "settings": [
+    {
+      "id": "custom_text_title",
+      "type": "text",
+      "label": "Text box heading",
+      "default": "Title"
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "name": "Button",
+      "type": "button",
+      "settings": [
+        {
+          "id": "button_text",
+          "type": "textarea",
+          "label": "Button Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alex Block"
+    }
+  ]
+}
+{% endschema %}

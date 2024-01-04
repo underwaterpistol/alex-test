@@ -1,0 +1,45 @@
+.icons-banner {
+    padding: 25px 0;
+    &__container {
+      @extend .container;
+    }
+    &__icons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      @media #{$mobile}{
+        align-items: flex-end;
+      }
+      
+    }
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media #{$mobile}{
+        width: 50%;
+      }
+      &__svg-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin:0 0.5rem;
+      }
+      &__text-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:0 0.5rem;
+      }
+      span {
+        display: block;
+        margin-top: 5px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+    &__icons-stacked .icons-banner__icon{
+      flex-direction: column;
+    }
+  }

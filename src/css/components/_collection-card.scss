@@ -1,0 +1,10 @@
+.collection-card{
+    display: block;
+    &__content{
+        padding:2.25rem;
+    }
+    &__title{
+        @extend .h2;
+        margin-bottom:5px;
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "customers_activate",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

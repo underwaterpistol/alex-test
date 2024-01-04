@@ -1,0 +1,130 @@
+{% if product.metafields.custom.product_faqs != blank %}
+<div class="faqs bg-color-{{ section.id }}">
+  <div class="faqs__wrapper">
+    <h2 class="faqs__title">{{ section.settings.title }}</h2>
+    <div class="faqs__content">
+      <div class="accordion">
+        {% assign pdp_faqs = product.metafields.custom.product_faqs.value %}
+        {% for pdp_faq in pdp_faqs %}
+          {% assign faq_title = pdp_faq.question.value %}
+          {% assign faq_answer = pdp_faq.answer %}
+
+          <div class="accordion__item">
+            <input type="checkbox" name="accordion-{{ section.id }}" class="accordion__item__trigger" hidden id="accordionItem-{{ section.id }}-{{ forloop.index }}-{{ faqforloop }}">
+            <label for="accordionItem-{{ section.id }}-{{ forloop.index }}-{{ faqforloop }}" class="accordion__item__title">
+                <span>{{ faq_title }}</span>
+                <span class="accordion__item__dropdown-arrow">
+                {% render "icons", icon: "chevron-down" %}
+                </span>
+            </label>
+            <div class="accordion__item__content">{{ faq_answer | metafield_tag }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% if section.settings.cta_url != blank %}
+    <div class="faqs__footer">
+      <a class="button" href="{{ section.settings.cta_url }}" role="button">{{ section.settings.cta_text }}</a>
+    </div>
+  {% endif %}
+  </div>
+</div>
+
+<style>
+  .bg-color-{{ section.id }} {
+    background-color: {{ section.settings.content_bg }};
+  }
+  #shopify-section-{{ section.id }} {
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+</style>
+
+{% endif %}
+
+
+{% schema %}
+
+  {
+    "name": "Product FAQs",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default":"FREQUENTLY ASKED QUESTIONS"
+      },
+      {
+        "type": "color",
+        "id": "content_bg",
+        "label": "Background Colour",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "CTA Link"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "Discover"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 85,
+        "label": "Padding Top"
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 85,
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 85,
+        "label": "Padding Top (Mobile)"
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mobile",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 85,
+        "label": "Padding Bottom (Mobile)"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Product Sections",
+        "name": "PDP FAQs"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

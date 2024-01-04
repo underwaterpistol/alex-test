@@ -1,0 +1,87 @@
+<!--
+    NOTE: Test8ing
+-->
+
+{% comment %}
+  This section can be rendered on any page but only one per page please.
+{% endcomment %}
+
+{% liquid
+    assign base_class = "announcement-bar"
+%}
+<style>
+    .custom-announcement-bar *{
+        color: {{ section.settings.color_text }}
+    }
+</style>
+
+<div class="{{ base_class }} custom-announcement-bar" style="display: block;" id="AnnouncementBar">
+    <div class="swiper {{ base_class }}__container {{ base_class }}__swiper-{{ section.id }}" style="background-color: {{ section.settings.color_background }};">
+        
+        <div class="swiper-wrapper {{ base_class }}__swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide {{ base_class }}__swiper-slide">
+    
+                    <div class="{{ base_class }}__message">
+                       {{ block.settings.message }}
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('swiperReady', () => {
+        new Swiper(".{{ base_class }}__swiper-{{ section.id }}", {
+            slidesPerView: 1,
+            autoplay: {
+            delay: 5000,
+            },
+            loop: true,
+        })
+    })
+</script>
+
+{% schema %}
+    {
+        "name": "Announcement Bar",
+        "tag": "section",
+        "class": "announcement_bar",
+        "settings": [
+            {
+                "type": "color",
+                "id": "color_background",
+                "label": "Background color",
+                "default": "#000"
+            },
+            {
+                "type": "color",
+                "id": "color_text",
+                "label": "Text color",
+                "default": "#FFF"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Message",
+                "type": "message",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "info": "For admin only"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "message",
+                        "label": "Message",
+                        "default": "<p>This is a test message</p>"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

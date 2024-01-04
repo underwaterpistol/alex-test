@@ -1,0 +1,37 @@
+{% comment %}
+    Renders a list of product's price (regular, sale)
+    Accepts:
+    - product: {Object} Product Liquid object
+    - base_class: {String} Adds a class to the element
+    Usage:
+    {% render 'price', product: product, base_class:base_class %}
+{% endcomment %}
+
+{% liquid
+  assign compare_at_price = product.compare_at_price
+  assign price = product.price
+
+  if compare_at_price and compare_at_price > price
+    assign is_on_sale = true
+  else
+    assign is_on_sale = false
+  endif
+%}
+
+<div class="{{ base_class }}__price">
+  <div class="{{ base_class }}__price__container">
+
+    {% comment %} Compare at price {% endcomment %}
+    {% if is_on_sale %}
+      <span class="{{ base_class }}__compare-at-price" data-compare-at-price>
+        <span>{{ compare_at_price | money }}</span>
+      </span>
+    {% endif %}
+
+    {% comment %} Default price {% endcomment %}
+    <span class="{{ base_class }}__price {% if is_on_sale %} {{ base_class }}__price__sale {% endif %}">
+      <span data-price>{% if product.price_varies %}From {% endif %}{{ price | money }}</span>
+    </span>
+
+  </div>
+</div>

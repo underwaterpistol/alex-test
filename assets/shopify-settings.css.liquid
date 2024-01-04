@@ -1,0 +1,7 @@
+{% capture shopify_settings %}
+:root {
+    --accent_colour: {{ settings.accent_colour }};
+}
+{% endcapture %}
+
+{{ shopify_settings | strip_newlines }}

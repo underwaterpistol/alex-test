@@ -1,0 +1,48 @@
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" role="navigation">
+    <ol class="pagination__list">
+      {%- if paginate.previous -%}
+        <li class="pagination__item pagination__item--arrow">
+          <a href="{{ paginate.previous.url }}" class="pagination__link">
+            {% render "icons", icon: "chevron-left" %}
+          </a>
+        </li>
+      {%- else -%}
+        <li class="pagination__item pagination__item--arrow disabled">
+          {% render "icons", icon: "chevron-left" %}
+        </li>
+      {%- endif -%}
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <li class="pagination__item">
+            <a href="{{ part.url }}" class="pagination__link">
+              {{ part.title }}
+            </a>
+          </li>
+        {%- else -%}
+          {%- if part.title == paginate.current_page -%}
+            <li class="pagination__item active" aria-current="page">
+              {{ part.title }}
+            </li>
+          {%- else -%}
+            <li class="pagination__item">
+            {{ part.title }}
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        <li class="pagination__item pagination__item--arrow">
+          <a href="{{ paginate.next.url }}" class="pagination__link">
+            {% render "icons", icon: "chevron-right" %}
+          </a>
+        </li>
+      {%- else -%}
+        <li class="pagination__item pagination__item--arrow disabled">
+          {% render "icons", icon: "chevron-right" %}
+        </li>
+      {%- endif -%}
+    </ol>
+  </nav>
+{% endif %}

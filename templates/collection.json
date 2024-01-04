@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "94728265-5217-4552-8699-2cd9856c9841": {
+      "type": "hero_slide_banner",
+      "settings": {
+        "side_margins": false,
+        "margin_top": 0,
+        "margin_bottom": 4,
+        "show_overlay": false,
+        "overlay_bg": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 1) 100%)",
+        "show_content_box": true,
+        "alignment": "center",
+        "colour": "",
+        "text_colour": "#000000",
+        "title": "Summer Shop",
+        "subtitle": "",
+        "blurb": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing.",
+        "cta_text": "",
+        "cta_link": "",
+        "button_colour": "#000000",
+        "button_hover_color": "#ffffff",
+        "button_text_colour": "#ffffff",
+        "button_text_hover_colour": "#000000",
+        "h1": true
+      }
+    },
+    "main": {
+      "type": "collection",
+      "settings": {
+        "desktop_columns": "5",
+        "mobile_columns": "2"
+      }
+    }
+  },
+  "order": [
+    "94728265-5217-4552-8699-2cd9856c9841",
+    "main"
+  ]
+}

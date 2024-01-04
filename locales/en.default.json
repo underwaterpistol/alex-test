@@ -1,0 +1,144 @@
+{
+  "product_card": {
+    "quick_shop": "Quick Shop",
+    "view_product": "View Product",
+    "new": "New",
+    "sale": "Sale"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "customers_also_bought": "Customers also bought",
+    "notify_me": "Notify Me"
+  },
+  "blogs": {
+    "article": {
+      "one_min_read": "1 min read",
+      "min_read": "{{ content }} mins read"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "order_history": {
+        "title": "My Order History",
+        "order": "Order",
+        "date": "Date",
+        "total": "Total",
+        "status": "Status",
+        "no_orders": "You have no orders."
+      },
+      "addresses": {
+        "title": "My Address",
+        "edit_address": "View address",
+        "add_address": "Add address"
+      }
+    },
+    "activate": {
+      "title": "Activate Account",
+      "submit_button": "Activate"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "submit_button": "Save",
+      "add": "Add a new address",
+      "address_updated": "Address updated!",
+      "back_to_account": "Return to account details",
+      "edit": "Edit",
+      "default": "Default",
+      "set_default": "Set as default"
+    },
+    "login": {
+      "title": "Login",
+      "recover_success": "We've sent password reset instructions to your email address.",
+      "submit_button": "Sign in",
+      "register_message_html": "Don't have an account? <a href='/account/register' class='login__form__signup-link'>Sign Up</a>"
+    },
+    "recover": {
+      "title": "Recover password",
+      "submit_button": "Reset password"
+    },
+    "reset": {
+      "title": "Reset password",
+      "submit_button": "Reset password"
+    },
+    "register": {
+      "title": "Register",
+      "submit_button": "Sign up",
+      "login_message_html": "Already have an account? <a href='/account/login' class='login__form__login-link'>Log In</a>"
+    }
+  },
+  "collection": {
+    "products_count": "Products",
+    "filters": {
+      "title": "Filter",
+      "filter_by": "Filter by",
+      "selected": "Selected",
+      "submit_button": "Submit",
+      "clear": "Clear",
+      "clear_all": "Clear all",
+      "view": "View",
+      "max_price": "The highest price is",
+      "from": "From",
+      "to": "To"
+    }
+  },
+  "menu": {
+    "view_all": "All {{ title }}"
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y",
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December"
+  },
+  "search": {
+    "search": "Search",
+    "no_results": "No Results"
+  },
+  "forms": {
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "new_password": "New password",
+    "confirm_new_password": "Confirm new password",
+    "forgot_password": "Forgot Password?",
+    "country": "Country",
+    "province": "Province",
+    "address1": "Address",
+    "address2": "Apartment, suite, etc. (optional)",
+    "city": "City",
+    "postal_code": "Postal Code",
+    "login": "Log in",
+    "register": "Register"
+  },
+  "cart": {
+    "my_cart": "My cart",
+    "sub_total": "Sub-total",
+    "total": "Total",
+    "view_cart": "View Cart",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "product": "Product",
+    "unit_price": "Unit Price",
+    "quantity": "Quantity",
+    "no_stock_message": "Max quantity reached. Limited stock available."
+  },
+  "localization": {
+    "language_label": "Language",
+    "update_language": "Update Language"
+  }
+}

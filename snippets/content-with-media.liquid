@@ -1,0 +1,116 @@
+{% liquid
+    assign content_classlist = "split__content"
+    assign image_classlist = "split__image"
+    assign colour_mode = section.settings.colour_mode | default: "dark"
+    assign base_class = "content-with-media"
+  %}
+
+  <section class="{{ base_class }} {{ base_class }}__{{ colour_mode }}">
+    
+    <div class="hide-on-desktop {{ base_class }}__mobile-image">
+      <div class="content-with-media__mobile-image__inner">
+        {% if section.settings.mobile_image %}
+          {{ section.settings.image_mobile
+            | image_url: width: section.settings.image_mobile.width, height: section.settings.image_mobile.height
+            | image_tag:
+              alt: section.settings.image_mobile.alt,
+              width: section.settings.image_mobile.width,
+              height: section.settings.image_mobile.height,
+              class: 'content-with-media__imag',
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 50vw, 100vw'
+          }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="{{ base_class }}__wrapper bg-color-{{ section.id }} {% if section.settings.left_content %}{{ base_class }}__row-reverse {% endif %}">
+      
+      <div class="{{ image_classlist }} hide-on-mobile ">
+
+        {% unless section.settings.background_video != blank %}
+          <div class="content-with-media__inner">
+            {% if section.settings.image %}
+              {{ section.settings.image
+                | image_url: width: section.settings.image.width, height: section.settings.image.hegiht
+                | image_tag:
+                  alt: section.settings.image.alt,
+                  width: section.settings.image.width,
+                  height: section.settings.image.hegiht,
+                  class: 'content-with-media__image',
+                  loading: 'lazy',
+                  sizes: '(min-width: 750px) 50vw, 100vw'
+              }}
+            {% else%}
+              <img width="600" height="600" src="https://picsum.photos/600/600" alt="" class="content-with-media__image" />
+            {% endif %}
+          </div>
+
+        {% endunless %}
+
+        {% if section.settings.background_video != blank %}
+          <div class="{{ base_class }}__background-video__wrapper">
+              <video class="lazy {{ base_class }}__background-video" autoplay loop muted poster="{{ section.settings.image | image_url: width: 800 }}">
+                <source data-src="{{ section.settings.background_video }}" type="video/mp4">
+              </video>
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if section.settings.background_image != blank %}
+
+        <div class="{{ base_class }}__background-image hide-on-mobile">
+
+          <div class="content-with-media__background-image__inner">
+            {{ section.settings.background_image
+              | image_url: width: section.settings.background_image.width, height: section.settings.background_image.width | divided_by: section.settings.background_image.aspect_ratio
+              | image_tag:
+                alt: section.settings.background_image.alt,
+                width: section.settings.background_image.width,
+                height: section.settings.background_image.width | divided_by: section.settings.background_image.aspect_ratio,
+                class: 'content-with-media__image',
+                loading: 'lazy',
+                sizes: '(min-width: 750px) 50vw, 100vw'
+            }}
+          </div>
+
+        </div>
+
+      {% endif %}
+
+
+      <div class="{{ content_classlist }}">
+        <div class="{{ base_class }}__content">
+          <h2 class="{{ base_class }}__title">{{ section.settings.title }}</h2>
+          
+            {% if section.blocks.size == 0 %}
+              <div class="{{ base_class }}__copy">{{ section.settings.content }}</div>
+            {%  else  %}
+              <div class="{{ base_class }}__blocks">
+                {% for block in section.blocks %}
+                  <div>
+                    <h3>{{ block.settings.title }}</h3>
+                    {{ block.settings.content }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {%- unless hide_button -%}
+            {% if section.settings.show_cta %}<a class="button button-outline" href="{{ section.settings.cta_url }}" role="button" aria-label="{{ section.settings.title | strip_html }}">{{ section.settings.cta_text }}</a>{% endif %}
+            {% if section.settings.show_cta2 %}<a class="button" href="{{ section.settings.cta2_url }}" role="button" aria-label="{{ section.settings.title | strip_html }}">{{ section.settings.cta2_text }}</a>{% endif %}
+          {%- endunless -%}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .bg-color-{{ section.id }} {
+      background-color: {{ section.settings.content_bg }};
+    }
+    .content-with-media__light .content-with-media__content .button{
+      color: {{ section.settings.content_bg }};
+    }
+  </style>

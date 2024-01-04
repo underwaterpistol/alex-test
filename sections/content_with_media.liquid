@@ -1,0 +1,121 @@
+{% render 'content-with-media', section: section %}
+
+{% schema %}
+  {
+    "name": "Content with Media",
+    "settings": [   
+      {
+        "type": "checkbox",
+        "id": "left_content",
+        "label": "Content on left",
+        "default": false,
+        "info": "Content is on the right by default"
+      },
+      {
+        "type": "color",
+        "id": "content_bg",
+        "label": "Background Colour",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "radio",
+        "id": "colour_mode",
+        "label": "Mode",
+        "options": [
+          { "value": "dark", "label": "Dark" },
+          { "value": "light", "label": "Light" }
+        ],
+        "default": "dark"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Image Mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "background_video",
+        "label": "Background video"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Lorem Ipsum"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cta",
+        "label": "Show CTA?",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "CTA Link"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "Shop Now"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cta2",
+        "label": "Show CTA2?",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "cta2_url",
+        "label": "CTA2 Link"
+      },
+      {
+        "type": "text",
+        "id": "cta2_text",
+        "label": "CTA2 Text",
+        "default": "Discover"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "content",
+        "name": "Content",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem Ipsum"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Content with Media"
+      }
+    ]
+  }
+{% endschema %}

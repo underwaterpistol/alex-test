@@ -1,0 +1,77 @@
+<div class="icons-banner">
+  <div class="icons-banner__container">
+    <div class="icons-banner__inner">
+<div class="icons-banner__icons {% if section.settings.icon_text_stacked %}icons-banner__icons-stacked{% endif %}">
+        {% for block in section.blocks %}
+          <div class="icons-banner__icon">
+            {% if block.settings.icon != blank %}
+              <div class="icons-banner__icon__svg-box">
+                {{ block.settings.icon }}
+              </div>
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <div class="icons-banner__icon__text-box">
+                <span>{{ block.settings.title }}</span>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .icons-banner__icons {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.icon_color }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Icons Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Colour for icons and text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#FFFFFF"
+    },
+    {
+      "type":"checkbox",
+      "id":"icon_text_stacked",
+      "label":"Stack icon and text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon (Pate SVG code here)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Icon text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+      {
+      "name": "Icons Banner"
+      }
+  ]
+}
+{% endschema %}

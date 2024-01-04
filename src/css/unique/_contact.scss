@@ -1,0 +1,19 @@
+.contact-main {
+    margin: 60px auto;
+    &__container {
+      @extend .container;
+      max-width: 945px;
+    }
+    &__heading {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    &__subtitle {
+      @extend .eyebrow-text;
+    }
+    &__title {
+      @extend .h1;
+      margin: 5px 0 24px;
+      text-align: center;
+    }
+  }

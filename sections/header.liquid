@@ -1,0 +1,220 @@
+<!--
+  NOTE: This is the default header template.
+  You can replace it with a template from the component bank -
+  or your own code. You should also replace src/css/unique/_header.scss
+-->
+
+{% liquid 
+  assign sticky = section.settings.sticky 
+  assign additional_classes = section.settings.additional_classes
+  if section.settings.logo_svg_url != blank
+    assign logo = section.settings.logo_svg_url
+  elsif section.settings.logo != blank
+    assign logo = section.settings.logo | image_url: width: 150
+  else
+    assign logo = "https://via.placeholder.com/150x50?text=Logo+Image"
+  endif
+  if section.settings.navigation == blank
+    assign menu = linklists['main-menu']
+  else
+    assign menu = section.settings.navigation
+  endif
+%}
+
+<header class="header {{ additional_classes }}">
+  <div class="header__container">
+    <div class="header__inner">
+  
+      {% comment %} Logo {% endcomment %}
+      <div class="header__logo">
+        <a href="{{ shop.url }}">
+          {% comment %}theme-check-disable{% endcomment %}
+          <img src="{{ logo }}" loading="lazy" width="150" height="50" alt="{{ shop.title }} Logo">
+          {% comment %}theme-check-enable{% endcomment %}
+        </a>
+      </div>
+  
+      {% comment %} Header actions (search, minicart, account) {% endcomment %}
+      <div class="header__actions">
+  
+        <ul class="header__actions__list">
+
+          <li class="header__actions__item header__actions__item--search">
+            <button class="header__actions__link header__search-button" onclick="toggleSearchForm()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="header__actions__icon">
+                <path d="M16.9377 15.9243L12.3215 11.3081C13.1931 10.2167 13.7167 8.83561 13.7167 7.33336C13.7167 3.81355 10.8531 0.95 7.33333 0.95C3.81352 0.95 0.95 3.81355 0.95 7.33336C0.95 10.8532 3.81355 13.7167 7.33336 13.7167C8.83561 13.7167 10.2167 13.1931 11.3081 12.3216L15.9243 16.9377L15.9243 16.9377C16.0741 17.0874 16.3167 17.0874 16.4664 16.9377L16.4665 16.9377L16.9377 16.4664L16.9024 16.4311L16.9377 16.4664C17.0874 16.3167 17.0874 16.074 16.9377 15.9243ZM7.33336 12.2834C4.60381 12.2834 2.38335 10.0629 2.38335 7.33336C2.38335 4.60381 4.60381 2.38335 7.33336 2.38335C10.0629 2.38335 12.2834 4.60381 12.2834 7.33336C12.2834 10.0629 10.0629 12.2834 7.33336 12.2834Z" fill="black" stroke="black" stroke-width="0.1"></path>
+              </svg>
+            </button>
+            <form class="header__search-form" action="/search" method="get">
+              <input type="text" name="q" class="header__search-input" placeholder="{{ 'search.search' | t }}" autocomplete="off" data-search-input>
+            </form>
+          </li>
+
+          {% if shop.customer_accounts_enabled or shop.customer_accounts_optional %}
+            <li class="header__actions__item">
+              <a href="{{ routes.account_url }}" class="header__actions__link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="header__actions__icon" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+              </a>
+            </li>
+          {% endif %}
+          <li class="header__actions__item">
+            <button aria-label="Minicart open" onclick="Minicart.openDrawer();" class="header__actions__link header__actions__link--minicart" data-cart-count>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="header__actions__icon" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+            </button>
+          </li>
+
+          <li class="header__actions__item header__actions__item--hamburger-button">
+            <button class="header__actions__link" aria-label="Toggle mobile menu" onclick="openMobileMenu();">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="header__mobile-menu__icon" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+            </button>
+          </li>
+        </ul>
+  
+      </div>
+      
+    </div>
+  </div>
+
+  {% assign promo_blocks = section.blocks | where: "type", "megamenu_promo_block" %}
+  {% render "header-menu-desktop", menu: menu, promo_blocks: promo_blocks %}
+
+  {% render "header-menu-mobile", menu: menu, logo: logo %}
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    {% if sticky %}
+      const header = document.querySelector('.header');
+      const headerParent = header.parentElement;
+
+      // Add sticky straight away to header parent element
+      headerParent.style.position = "sticky";
+      headerParent.style.top = "0";
+      headerParent.style.zIndex = "9";
+
+      // If user has scrolled past a certain point, add is-scrolling to header
+      const scrollThreshold = 100;
+      const tolerance = 50;
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > scrollThreshold) {
+          header.classList.add('is-scrolling');
+        } else if (window.scrollY < scrollThreshold - tolerance) {
+          header.classList.remove('is-scrolling');
+        }
+      });
+    {% endif %}
+
+    // Add dropdown controls for mobile
+    const dropdownButtons = document.querySelectorAll('.header__menu-mobile__link.has-children');
+    dropdownButtons.forEach(function(dropdownButton) {
+      dropdownButton.addEventListener('click', function() {
+        this.parentElement.classList.toggle('is-open');
+      });
+    });
+  });
+
+  function toggleSearchForm() {
+    const searchForm = document.querySelector('.header__search-form');
+    if (searchForm) {
+      searchForm.classList.toggle('is-open');
+      searchForm.querySelector('input').focus();
+    }
+  }
+
+  function openMobileMenu() {
+  const nav = document.querySelector('.header__menu-mobile');
+    nav && nav.classList.add('is-open');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeMobileMenu() {
+  const nav = document.querySelector('.header__menu-mobile');
+    nav && nav.classList.remove('is-open');
+    document.body.classList.remove('no-scroll');
+  }
+
+</script>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "id": "sticky",
+        "label": "Use sticky header?",
+        "type": "checkbox",
+        "default": true
+      },
+      {
+        "id": "additional_classes",
+        "info": "Additional classes to add to the outer header",
+        "label": "Additional classes",
+        "type": "text"
+      },
+      {
+        "type": "header",
+        "content": "Logo Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Image",
+        "info": "Use this input if the logo is not an SVG"
+      },
+      {
+        "type": "url",
+        "id": "logo_svg_url",
+        "label": "Logo image URL (SVG)",
+        "info": "Only fill this if the logo is an SVG"
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "navigation",
+        "label": "Main Menu",
+        "info": "You can create a menu at Online Store > Navigation. Uses 'main-menu' if blank."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "megamenu_promo_block",
+        "name": "Megamenu promo block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Parent link title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Promo block image"
+          },
+          {
+            "type": "text",
+            "id": "promo_block_title",
+            "label": "Promo block title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Promo block URL"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

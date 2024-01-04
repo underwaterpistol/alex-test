@@ -1,0 +1,280 @@
+<!--
+  NOTE: This is the default footer template.
+  You can replace it with a template from the component bank -
+  or your own code. You should also replace src/css/unique/_footer.scss
+-->
+
+{% liquid 
+  assign use_container = section.settings.use_container
+  assign use_subfooter = section.settings.use_subfooter
+  assign base_class = 'footer'
+  assign inner_class = base_class | append: "__inner " | append: base_class | append: "__inner--desktop-" | append: section.settings.desktop_columns
+  assign inner_class = inner_class | append: " " | append: base_class | append: "__inner--mobile-" | append: section.settings.mobile_columns 
+  if use_container
+    assign inner_class = inner_class | append: " container"
+  endif
+%}
+
+<footer class="{{ base_class }}">
+
+  <div class="{{ inner_class }}">
+
+    {% for block in section.blocks %}
+      {% liquid 
+        assign block_base_class = "footer__block"
+        assign block_class_list = block_base_class | append: " " | append: block_base_class | append: "--desktop-" | append: block.settings.desktop_colspan
+        assign block_class_list = block_class_list | append: " " | append: block_base_class | append: "--mobile-" | append: block.settings.mobile_colspan
+        assign block_class_list = block_class_list | append: " " | append: block_base_class | append: "--" | append: block.type
+      %}
+      <div class="{{ block_class_list }}">
+
+        {% liquid
+          if block.type == "html" or block.type == "liquid"
+
+            echo block.settings.content
+            
+            if block.type == "html"
+              render 'social-icons', base_class: base_class, inner_class: "list-icons"
+              render 'localization-form'
+            endif
+          endif
+        %}
+
+        {% if block.type == "linklist" and block.settings.link_list != blank %}
+          {% assign links = block.settings.link_list.links %}
+          <p class="{{ base_class }}__title">{{ block.settings.link_list.title }}</p>
+          <ul class="{{ base_class }}__list">
+            {% for link in links %}
+              <li class="{{ base_class }}__list-item">
+                <a href="{{ link.url }}" class="{{ base_class }}__list-link">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      
+      </div>
+    {% endfor %}
+
+  </div>
+
+</footer>
+
+{% if use_subfooter %}
+  <div class="{{ base_class }}__sub">
+    {% if use_container %}
+      <div class="container">
+    {% endif %}
+
+      <div class="{{ base_class }}__sub-inner">
+        <p class="{{ base_class }}__sub-text">{{ section.settings.copyright }}</p>
+
+        {%- unless shop.enabled_payment_types == empty -%}
+          {% render "payment-icons" %}
+        {%- endunless -%}
+        
+      </div>
+
+    {% if use_container %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "max_blocks": 6,
+    "blocks": [
+      {
+        "type": "html",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "range",
+            "id": "desktop_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Desktop Column Span",
+            "default": 1
+          },
+          {
+            "type": "range",
+            "id": "mobile_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Mobile Column Span",
+            "default": 1
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "HTML Content"
+          }
+        ]
+      },
+      {
+        "type": "liquid",
+        "name": "Liquid",
+        "settings": [
+          {
+            "type": "range",
+            "id": "desktop_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Desktop Column Span",
+            "default": 1
+          },
+          {
+            "type": "range",
+            "id": "mobile_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Mobile Column Span",
+            "default": 1
+          },
+          {
+            "type": "liquid",
+            "id": "content",
+            "label": "Liquid Content"
+          }
+        ]
+      },
+      {
+        "type": "linklist",
+        "name": "Link List",
+        "settings": [
+          {
+            "type": "range",
+            "id": "desktop_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Desktop Column Span",
+            "default": 1
+          },
+          {
+            "type": "range",
+            "id": "mobile_colspan",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "label": "Mobile Column Span",
+            "default": 1
+          },
+          {
+            "type": "link_list",
+            "id": "link_list",
+            "label": "Link List",
+            "info": "You can create link list at Online Store > Navigation."
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Container"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_container",
+        "label": "Use container?",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Columns"
+      },
+      {
+        "id": "desktop_columns",
+        "label": "Desktop Columns",
+        "type": "select",
+        "default": "5",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          }
+        ]
+      },
+      {
+        "id": "mobile_columns",
+        "label": "Mobile Columns",
+        "type": "select",
+        "default": "2",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Sub Footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_subfooter",
+        "label": "Use subfooter?",
+        "default": true
+      },
+      {
+        "type": "liquid",
+        "id": "copyright",
+        "label": "Copyright Text",
+        "info": "You can use liquid tags in this field.",
+        "default": "&copy; {{ 'now' | date: '%Y' }} {{ shop.address.company | default: shop.name }}"
+      },
+      {
+        "type": "header",
+        "content": "Content",
+        "info": "Add content by adding new blocks in the left hand sidebar."
+      }
+    ]
+  }
+{% endschema %}

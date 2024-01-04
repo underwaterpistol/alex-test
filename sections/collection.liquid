@@ -1,0 +1,132 @@
+<!--
+  NOTE: CSS - src/css/unique/_collection.scss
+-->
+
+{% liquid
+  assign desktop_columns = section.settings.desktop_columns | default: 4
+  assign mobile_columns = section.settings.mobile_columns | default: 2
+%}
+
+<div class="collection">
+  
+  <div class="collection__inner">
+
+    <div class="collection__breadcrumbs">
+      {% render 'breadcrumbs' %}
+    </div>
+
+    <div class="collection__top-bar">
+      {% render "collection-filters" %}
+      {% render "collection-sort" %}
+    </div>
+
+    <div class="collection__products-count">
+      <span class="collection__products-count-wrapper">
+        <span data-products-count></span>
+        <span>{{ "collection.products_count" | t }}</span>
+      </span>
+    </div>
+    
+    <div class="collection__products-grid collection__products-grid--desktop-{{ desktop_columns }} collection__products-grid--small-mobile-{{ mobile_columns }} collection__products-grid--tablet-3 collection__products-grid--mobile-3">
+      {% liquid
+        paginate collection.products by settings.products_per_page
+          assign products_count = paginate.items
+          assign paginate = paginate
+          for product in collection.products
+            render 'product-card', product: product
+          endfor
+        endpaginate
+      %}
+
+      <div data-paginate-items="{{ products_count }}" hidden></div>
+
+      {% render "pagination", paginate: paginate %}
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Check if quickshop is defined
+    // If not this means we're rendering as normal
+    // If it is, this has been re-rendered, so re-init Quickshop
+    if (typeof Quickshop === 'undefined') {
+      document.addEventListener('quickshopReady', () => {
+        Quickshop.init();
+      })
+    } else {
+      Quickshop.init();
+    }
+  })();
+
+  // Init Quickshop when filters are applied
+  document.addEventListener('filtersApplied', () => {
+    Quickshop.init();
+  })
+</script>
+
+{% schema %}
+  {
+    "name": "Collection",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Columns"
+      },
+      {
+        "id": "desktop_columns",
+        "label": "Desktop Columns",
+        "type": "select",
+        "default": "5",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          }
+        ]
+      },
+      {
+        "id": "mobile_columns",
+        "label": "Mobile Columns",
+        "type": "select",
+        "default": "2",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

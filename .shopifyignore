@@ -1,0 +1,11 @@
+package.json
+package-lock.json
+node_modules
+src
+temp_settings
+uwpDeployHelper.js
+uwpLintHelper.js
+uwpSettingsHelper.js
+.eslintrc.js
+.gitignore
+.parcel-cache

@@ -1,0 +1,11 @@
+<div class="payment-icons">
+  <span class="visually-hidden">Supported payment methods</span>
+
+  <ul class="payment-icons__list">
+    {%- for type in shop.enabled_payment_types -%}
+      <li class="payment-icons__icon">
+        {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

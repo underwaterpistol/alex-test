@@ -1,0 +1,156 @@
+.product {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, auto));
+  column-gap: 60px;
+  margin-bottom: 30px;
+  @media #{$mobile} {
+    display: block;
+    & > * + * {
+      margin-top: 30px;
+    }
+  }
+  &__wrapper {
+    @extend .container;
+  }
+  &__media {
+    &__swiper {
+      &__navigation {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        top: 44%;
+        &__container {
+          @extend .container;
+        }
+        &__button {
+          display: inline-block;
+          cursor: pointer;
+          background: #fff;
+          padding: 7px 10px;
+          svg path {
+            fill: $brandPrimary;
+          }
+          &--next {
+            float: right;
+          }
+        }
+      }
+    }
+    &__thumbnails {
+      margin-top: 32px;
+      @media #{$small-mobile} {
+        margin-top: 15px;
+      }
+    }
+  }
+  &__quantity {
+    margin-bottom: 22px;
+    display: inline-block;
+    border:1px solid $brandBody;
+    input[type="button"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #fff;
+      border: none;
+      width: 50px;
+      text-align: center;
+      font-size: $default-font-size;
+      cursor: pointer;
+    }
+    input[type="number"] {
+      width: 70px;
+      border: none;
+      text-align: center;
+      padding: 8px;
+    }
+  }
+  &__compare-at-price{
+    text-decoration: line-through;
+  }
+  &__atc-button{
+    @extend .button;
+  }
+  &__notify-modal{
+    &__container{
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: #00000066;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        &.active{
+            display: flex;
+        }
+    }
+    &__wrapper{
+      background-color: #FFF;
+      padding: 1rem;
+      width: 450px;
+      max-width: 95vw;
+    }
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__close{
+        cursor: pointer;
+    }
+    &__body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & > p {
+            margin: 1rem 0.5rem 0;
+            width: 100%;
+            text-align: left;
+        }
+
+    }
+    &__title{
+      text-align: left;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    &__vendor{
+      text-align: left;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    &__select{
+      width: 100%;
+      padding: 0.75rem 0;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+    }
+    &__sign-up {
+      margin-bottom: 1rem;
+      width: 100%;
+      width: 100%;
+      padding: 0.75rem 0;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+      border-bottom: solid $brandBody 1px;
+    }
+    &__email {
+        margin-bottom: 1rem;
+        & > input {
+            width: 100%;
+        }
+    }
+    
+    &__close{
+      background-color: #FFF;
+      border: none;
+    }
+  }
+  &__preorder-button{
+    background-color: $brandSecondary;
+  }
+}

@@ -1,0 +1,154 @@
+{% liquid
+  assign base_class = "info-columns"
+%}
+
+<div class="{{ base_class }}__container">
+  <div class="{{ base_class }}__inner {{ base_class }}__inner--columns-{{ section.blocks.size }} {{ base_class }}__inner--mobile-columns-{{ section.settings.mobile_columns }}">
+    {% for block in section.blocks %}
+      <div class="{{ base_class }}__item">
+
+        {% if block.settings.image != blank %}
+          <img
+            src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
+            alt="{{ block.settings.image.alt }}"
+						class="{{ base_class }}__image {{ base_class }}__image--{{ section.settings.image_alignment }}"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            loading="lazy"
+          >
+        {% else %}
+          <img height="100" width="100" src="https://picsum.photos/100/100" alt="placeholder" class="desktop_image">
+        {% endif %}
+
+				<div class="{{ base_class }}__content {{ base_class }}__content--{{ section.settings.text_alignment }}">
+          {% if block.settings.title != blank %}
+            <h3 class="{{ base_class }}__title">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.subtitle != blank %}
+            <h5 class="{{ base_class }}__subtitle">{{ block.settings.subtitle }}</h5>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <h4 class="{{ base_class }}__text">{{ block.settings.text }}</h4>
+          {% endif %}
+
+          {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+            <a href="{{ block.settings.button_url }}" class="{{ base_class }}__button">{{ block.settings.button_text }}</a>
+          {% endif %}
+
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Info columns",
+    "class": "info-columns",
+    "tag": "section",
+    "max_blocks": 4,
+    "settings": [
+			{
+				"type": "select",
+				"id": "image_alignment",
+				"label": "Image alignment",
+				"options": [
+					{
+						"value": "left",
+						"label": "Left"
+					},
+					{
+						"value": "center",
+						"label": "Center"
+					},
+					{
+						"value": "right",
+						"label": "Right"
+					}
+				],
+				"default": "left"
+			},
+			{
+				"type": "select",
+				"id": "text_alignment",
+				"label": "Text alignment",
+				"options": [
+					{
+						"value": "left",
+						"label": "Left"
+					},
+					{
+						"value": "center",
+						"label": "Center"
+					},
+					{
+						"value": "right",
+						"label": "Right"
+					}
+				],
+				"default": "left"
+			},
+      {
+        "type": "select",
+        "id": "mobile_columns",
+        "label": "Mobile columns",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ],
+        "default": "1"
+      }
+		],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+					},
+					          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+					          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Info columns"
+      }
+    ]
+  }
+{% endschema %}

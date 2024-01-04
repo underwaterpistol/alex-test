@@ -1,0 +1,134 @@
+{% liquid
+  assign menu = menu | default: linklists['main-menu']
+  assign promo_blocks = promo_blocks
+  assign dropdown_on_click = true
+%}
+
+{% comment %} Primary nav {% endcomment %}
+<nav class="header__menu-desktop">
+  <div class="header__menu-desktop__container">
+    <ul class="header__menu-desktop__list">
+      {% for item in menu.links %}
+  
+        {% comment %} Child links {% endcomment %}
+        {% if item.links != blank %}
+          <li class="header__menu-desktop__item {% if dropdown_on_click %} open-on-click {% endif %}">
+
+            {% if dropdown_on_click %}
+              <button class="header__menu-desktop__link has-children">
+                <span>{{ item.title }}</span>
+                {% render "icons", icon: "chevron-down", class: "header__menu-desktop__dropdown-icon" %}
+              </button>
+            {% else %}
+              <a href="{{ item.url }}" class="header__menu-desktop__link has-children">
+                <span>{{ item.title }}</span>
+                {% render "icons", icon: "chevron-down", class: "header__menu-desktop__dropdown-icon" %}
+              </a>
+            {% endif %}
+
+            <div class="header__menu-desktop__dropdown">
+              <div class="header__menu-desktop__dropdown__container">
+
+                {% if dropdown_on_click and item.url %}
+                  <a href="{{ item.url }}" class="header__menu-desktop__link--view-all">
+                    <span>{{ "menu.view_all" | t: title: item.title }}</span>
+                    {% render "icons", icon: "chevron-right" %}
+                  </a>
+                {% endif %}
+
+                <div class="header__menu-desktop__dropdown__inner">
+                  {% for child in item.links %}
+                    <ul class="header__menu-desktop__sublist">
+      
+                    {% if child.links == blank %}
+                      {% comment %} No grandchild links {% endcomment %}
+                      <li class="header__menu-desktop-sublist__item">
+                        <a href="{{ child.url }}" class="header__menu-desktop__sublist__link">{{ child.title }}</a>
+                      </li>
+                    {% else %}        
+                      <li class="header__menu-desktop__sublist__item">
+                        <a href="{{ child.url }}" class="header__menu-desktop__sublist__link">{{ child.title }}</a>
+
+                        <ul class="header__menu-desktop__grandchildren">
+                        {% for grandchild in child.links %}
+                          <li class="header__menu-desktop__grandchildren__item">
+                            <a href="{{ grandchild.url }}" class="header__menu-desktop__grandchildren__link">{{ grandchild.title }}</a>
+                          </li>
+                        {% endfor %}
+                        </ul>
+
+                      </li>
+                    {% endif %}
+    
+                    </ul>
+                  {% endfor %}
+    
+                  {% assign child_promo_blocks = promo_blocks | map: "settings" | where: "title", item.title %}
+                  {% for promo_block in child_promo_blocks %}
+                    <div class="header__menu-desktop__promo-block">
+                      <a href="{{ promo_block.url }}" class="header__menu-desktop__promo-block__link-wrapper">
+                        <div class="header__menu-desktop__promo-block__image-container">
+                          <img
+                            class="header__menu-desktop__promo-block__image"
+                            src="{{ promo_block.image | image_url: width: promo_block.image.width }}"
+                            alt="{{ promo_block.image.alt }}"
+                            width="300"
+                            height="300"
+                            loading="lazy"
+                          >
+                        </div>
+                        <span class="header__menu-desktop__promo-block__title">{{ promo_block.promo_block_title }}</span>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </li>
+  
+        {% comment %} No child links {% endcomment %}
+        {% else %}
+          <li class="header__menu-desktop__item">
+            <a href="{{ item.url }}" class="header__menu-desktop__link">{{ item.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+
+{% if dropdown_on_click %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const dropdowns = document.querySelectorAll('.header__menu-desktop__link');
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('click', openDropdown);
+    });
+
+    function openDropdown() {
+      // Check if there's any dropdown already opened and close it if true
+      const openDropdown = document.querySelector('.open-on-click.is-open');
+      const menuItem = event.target.closest('.header__menu-desktop__item');
+      if (menuItem !== openDropdown) {
+        openDropdown && openDropdown.classList.remove('is-open');
+      }
+      menuItem.classList.toggle('is-open');
+  
+      if (menuItem.classList.contains('is-open')) {
+        document.addEventListener('click', clickOutsideHanlder);
+      } else {
+        document.removeEventListener('click', clickOutsideHanlder);
+      }
+    }
+  
+    function clickOutsideHanlder(event) {
+      const openDropdown = document.querySelector('.open-on-click.is-open');
+      if (openDropdown && !openDropdown.contains(event.target)) {
+        openDropdown.classList.remove('is-open');
+        document.removeEventListener('click', clickOutsideHanlder);
+      }
+    }
+  })
+</script>
+{% endif %}

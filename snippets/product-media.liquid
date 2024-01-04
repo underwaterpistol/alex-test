@@ -1,0 +1,68 @@
+{% case media.media_type %}
+  {% when 'image' %}
+    {% if thumbnails %}
+        {{ media | image_url: width: 150, height: 150, crop: 'center' | image_tag:
+            loading: "lazy",
+            sizes: '(min-width: 750px) 25vw, 100vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+    {% else %}
+
+    {% assign lazyloading = "lazy" %}
+
+    {% if forloop.first %}
+        {% assign lazyloading = "eager" %}
+    {% endif %}
+        {{ media | image_url: width: 2048 | image_tag:
+            loading: lazyloading,
+            sizes: '(min-width: 750px) 25vw, 100vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+    {% endif %}
+  {% when 'external_video' %}
+    {% if thumbnails %}
+        {{ media.preview_image | image_url: width: 150, height: 150, crop: 'center' | image_tag:
+            loading: "lazy",
+            sizes: '(min-width: 750px) 25vw, 100vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+    {% else %}
+        {% if media.host == 'youtube' %}
+            {{ media | external_video_url: autoplay: true, loop: true, playlist: media.external_id | external_video_tag: loading: "lazy" }}
+        {% else %}
+            {{ media | external_video_url: autoplay: true, loop: true | external_video_tag: loading: "lazy" }}
+        {% endif %}
+    {% endif %}
+  {% when 'video' %}
+    {% if thumbnails %}
+        {{ media.preview_image | image_url: width: 150, height: 150, crop: 'center' | image_tag:
+            loading: "lazy",
+            sizes: '(min-width: 750px) 25vw, 100vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+    {% else %}
+        {{ media | media_tag:
+            image_size: "2048x",
+            autoplay: true,
+            loop: true,
+            controls: true,
+            preload: "none"
+        }}
+    {% endif %}
+  {% when 'model' %}
+    {% if thumbnails %}
+        {{ media.preview_image | image_url: width: 150, height: 150, crop: 'center' | image_tag:
+            loading: "lazy",
+            sizes: '(min-width: 750px) 25vw, 100vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+        }}
+    {% else %}
+        {{ media | model_viewer_tag }}
+    {% endif %}
+  {% else %}
+    {% if thumbnails %}
+            THUMB
+        {% else %}
+            {{ media | media_tag }}
+        {% endif %}
+{% endcase %}

@@ -1,0 +1,115 @@
+{% liquid
+  assign menu = menu | default: linklists['main-menu']
+  assign promo_blocks = promo_blocks
+%}
+
+{% comment %} Primary nav {% endcomment %}
+<nav class="header__menu-mobile">
+  <div class="header__menu-mobile__container">
+
+    <div class="header__menu-mobile__header">
+
+      {% comment %} Mobile logo {% endcomment %}
+      <div class="header__logo">
+        <a href="{{ shop.url }}">
+          {% comment %}theme-check-disable{% endcomment %}
+          <img src="{{ logo }}" loading="lazy" width="150" height="50" alt="{{ shop.title }} Logo">
+          {% comment %}theme-check-enable{% endcomment %}
+        </a>
+      </div>
+
+      {% comment %} Mobile close button {% endcomment %}
+      <button class="header__menu-mobile__close-button" aria-label="Close mobile menu" onclick="closeMobileMenu();">
+        <svg height="12" width="12" viewPort="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
+          <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2"/>
+        </svg>
+      </button>   
+    </div>
+
+    <ul class="header__menu-mobile__list">
+      {% for item in menu.links %}
+  
+        {% comment %} Child links {% endcomment %}
+        {% if item.links != blank %}
+          <li class="header__menu-mobile__item">
+            <button class="header__menu-mobile__link has-children">
+              <span>{{ item.title }}</span>
+              <span class="header__menu-mobile__dropdown-icon">{% render "icons", icon: "chevron-down" %}</span>
+            </button>
+            <div class="header__menu-mobile__dropdown">
+              <div class="header__menu-mobile__dropdown__inner">
+                {% for child in item.links %}
+                  <ul class="header__menu-mobile__sublist">
+    
+                  {% if child.links == blank %}
+                    {% comment %} No grandchild links {% endcomment %}
+                    <li class="header__menu-mobile-sublist__item">
+                      <a href="{{ child.url }}" class="header__menu-mobile__sublist__link">{{ child.title }}</a>
+                    </li>
+                  {% else %}        
+                    <li class="header__menu-mobile__sublist__item">
+                      <a href="{{ child.url }}" class="header__menu-mobile__sublist__link">{{ child.title }}</a>
+
+                      <ul class="header__menu-mobile__grandchildren">
+                      {% for grandchild in child.links %}
+                        <li class="header__menu-mobile__grandchildren__item">
+                          <a href="{{ grandchild.url }}" class="header__menu-mobile__grandchildren__link">{{ grandchild.title }}</a>
+                        </li>
+                      {% endfor %}
+                      </ul>
+
+                    </li>               
+                  {% endif %}
+  
+                  </ul>
+                {% endfor %}
+
+                {% if item.url != blank %}
+                  <a href="{{ item.url }}" class="header__menu-mobile__link--view-all">{{ "menu.view_all" | t: title: item.title }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+  
+        {% comment %} No child links {% endcomment %}
+        {% else %}
+          <li class="header__menu-mobile__item">
+            <a href="{{ item.url }}" class="header__menu-mobile__link">{{ item.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <div class="header__menu-mobile__footer">
+      <ul class="header__menu-mobile__footer__list">
+
+        {% if shop.customer_accounts_enabled or shop.customer_accounts_optional %}
+          <li class="header__menu-mobile__footer__item">
+            <a href="{{ routes.account_url }}" class="header__menu-mobile__footer__link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="header__menu-mobile__footer__icon" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              {% if customer %}
+                <span>{{ customer.name }}</span>
+              {% else %}
+                <span>{{ "customer.login.title" | t }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endif %}
+
+        {% unless customer %}
+          <li class="header__menu-mobile__footer__item">
+            <a href="{{ routes.account_register_url }}" class="header__menu-mobile__footer__link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="header__menu-mobile__footer__icon" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              <span>{{ "customer.register.title" | t }}</span>
+            </a>
+          </li>
+        {% endunless %}
+      </ul>
+    </div>
+  </div>
+</nav>

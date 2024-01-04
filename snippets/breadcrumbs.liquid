@@ -1,0 +1,101 @@
+{% liquid
+  assign show_home = show_home | default: true, allow_false: true
+  assign show_back_arrow = show_back_arrow | default: false
+%}
+{%- assign template_name = template | split: '.' | first -%}
+
+<nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+  <ol class="breadcrumbs__list">
+
+    {% if show_home %}
+      <li class="breadcrumbs__item">
+        <a class="breadcrumbs__link" href="/">Home</a>
+      </li>
+    {% endif %}
+
+    {%- case template_name -%}
+      {%- when 'page' -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+        </li>
+      {%- when 'product' -%}
+        {%- if collection.url -%}
+          <li class="breadcrumbs__item">
+            {{ collection.title | link_to: collection.url, class: 'breadcrumbs__link' }}
+          </li>
+        {%- endif -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+        </li>
+      {%- when 'collection' and collection.handle -%}
+        {%- if current_tags -%}
+          <li class="breadcrumbs__item">
+            {{ collection.title | link_to: collection.url }}
+          </li>
+          <li class="breadcrumbs__item">
+            {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+" }}{%- endcapture -%}
+            <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+          </li>
+        {%- else -%}
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+          </li>
+        {%- endif -%}
+      {%- when 'blog' -%}
+        {%- if current_tags -%}
+          <li class="breadcrumbs__item">
+            {{ blog.title | link_to: blog.url }}
+          </li>
+          <li class="breadcrumbs__item">
+            {%- capture tag_url -%}{{ blog.url }}/tagged/{{ current_tags | join: "+" }}{%- endcapture -%}
+            <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+          </li>
+        {%- else -%}
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+          </li>
+        {%- endif -%}
+      {%- when 'article' -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ blog.url }}" aria-current="page">Blog</a>
+        </li>
+        <li class="breadcrumbs__item">
+          <span>{{ article.title }}</span>
+        </li>
+      {%- else -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+        </li>
+    {%- endcase -%}
+  </ol>
+</nav>
+
+<script>
+  const breadcrumbsList = document.querySelector('.breadcrumbs__list');
+
+  if (breadcrumbsList) {
+    const showBackArrow = '{{ show_back_arrow }}';
+    if (showBackArrow === 'true') {
+      // Insert back arrow inside first breadcrumb list
+      const backArrowMarkup = `{% render 'icons', icon: 'arrow-left-long' %}`;
+      const firstLink = breadcrumbsList.querySelector('a');
+      firstLink.insertAdjacentHTML('afterbegin', backArrowMarkup);
+    }
+
+    // Append article tag to breadcrumbs if users is visiting from filtered blog page
+    if (ThemeVars.template.name === 'article') {
+      const previousUrl = document.referrer;
+      if (previousUrl.includes('/tagged')) {
+        const tagHandle = previousUrl.split('/').pop();
+        const tagName = tagHandle.replace('-', ' ');
+        const breadcrumbsItems = breadcrumbsList.querySelectorAll('.breadcrumbs__item');
+        const lastBreadcrumbsItem = breadcrumbsItems[breadcrumbsItems.length - 1];
+        const newBreadcrumbsItem = document.createElement('li');
+        newBreadcrumbsItem.className = 'breadcrumbs__item';
+        newBreadcrumbsItem.innerHTML = `<a class="breadcrumbs__link" href="${previousUrl}" aria-current="page">${tagName}</a>`;
+        breadcrumbsList.insertBefore(newBreadcrumbsItem, lastBreadcrumbsItem,);
+      }
+    }
+  }
+
+</script>

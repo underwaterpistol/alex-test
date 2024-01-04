@@ -1,0 +1,106 @@
+.product-card {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+
+  // Images
+  &__image-container {
+    &--square {
+      @extend .square-image-container;
+    }
+    &--portrait {
+      @extend .portrait-image-container;
+    }
+    &--landscape {
+      @extend .landscape-image-container;
+    }
+  }
+  &__image {
+    @extend .image-in-container;
+  }
+
+  // Badges
+  &__badges {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    width: auto;
+    display: flex;
+    z-index:3;
+    & > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+  &__sale-tag, &__new-tag {
+    border-radius: 4px;
+    &__text {
+      @extend .small;
+    }
+  }
+
+  // Info
+  &__info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    a {
+      @extend .h4;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+  &__vendor {
+    @extend .small;
+  }
+  &__product-type {
+    @extend .small;
+  }
+  &__price-container {
+    display: flex;
+    & > * + * {
+    }
+  }
+  &__price {
+    @extend .h5;
+  }
+  &__compare-at-price {
+    @extend .small;
+    text-decoration: line-through;
+  }
+  &__description {
+    @extend .small;
+  }
+
+  // Button
+  &__button-container {
+    margin-top: auto;
+  }
+  &__button {
+    @extend .button;
+    display: block;
+    width:100%;
+  }
+  // Rollover Images
+  &__alternate-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    z-index: 2;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &__original-image {
+    transition: opacity 0.25s ease-in-out;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.hero-slider {
+    width: 100%;
+    position: relative;
+    &__wrapper {
+        @extend .container;
+    }
+    &__swiper-button-prev{
+        position: absolute;
+        left: 40px;
+        top: 50%;
+        z-index: 2;
+        cursor: pointer;
+        @media #{$mobile} {
+            left: 10px;
+        }
+    }
+    &__swiper-button-next{
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        z-index: 2;
+        cursor: pointer;
+        @media #{$mobile} {
+            right: 10px;
+        }
+    }
+    &__swiper-pagination{
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        bottom: 20px !important;
+    }
+    & > * > .swiper-pagination-bullet{
+        width: 11px;
+        height: 11px;
+        border-radius: 0;
+        background-color: $brandWhite;
+        opacity: 0.75;
+    }
+    & > * > .swiper-pagination-bullet-active{
+        opacity: 1;
+    }
+}

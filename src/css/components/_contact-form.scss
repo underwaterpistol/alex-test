@@ -1,0 +1,45 @@
+.contact-form {
+    &__inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 22px;
+      row-gap: 40px;
+      @media #{$mobile} {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+      }
+    }
+    &__messages {
+      &__success {
+        display: block;
+        margin-bottom: 40px;
+        padding: 10px;
+        outline: none;
+      }
+    }
+    &__field {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      label {
+        @extend .h3;
+        margin-bottom: 10px;
+      }
+      input,
+      textarea {
+        padding: 10px 0;
+        border: none;
+        border-bottom: 1px solid #000000;
+        outline: none;
+      }
+      &.message {
+        grid-column: 1 / -1;
+      }
+    }
+    input[type="submit"] {
+      @extend .button;
+      width: 187px;
+      border-radius: 0px;
+      -webkit-border-radius: 0px;
+    }
+  }

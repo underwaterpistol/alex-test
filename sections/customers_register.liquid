@@ -1,0 +1,37 @@
+<section class="register">
+  <div class="register__container">
+    <h1 class="register__title">{{ "customer.register.title" | t }}</h1>
+
+    {% form "create_customer", class: "register__form" %}
+
+      {% if form.errors %}
+        <div class="login__form__errors">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+    
+      <div class="register__form__input-wrapper">
+        <label for="first_name">{{ "forms.first_name" | t }}</label>
+        <input type="first_name" name="customer[first_name]">
+      </div>
+    
+      <div class="register__form__input-wrapper">
+        <label for="last_name">{{ "forms.last_name" | t }}</label>
+        <input type="last_name" name="customer[last_name]">
+      </div>
+    
+      <div class="register__form__input-wrapper">
+        <label for="email">{{ "forms.email" | t }}</label>
+        <input type="email" name="customer[email]">
+      </div>
+    
+      <div class="register__form__input-wrapper">
+        <label for="password">{{ "forms.password" | t }}</label>
+        <input type="password" name="customer[password]">
+      </div>
+
+      <button class="register__form__submit-button" type="submit">{{ "customer.register.submit_button" | t }}</button>
+      <p class="login__form__login">{{ "customer.register.login_message_html" | t }}</p>
+    {% endform %}
+  </div>
+</section>

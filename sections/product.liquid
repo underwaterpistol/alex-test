@@ -1,0 +1,61 @@
+{% assign base_class = "product" %}
+<div class="{{ base_class }}__wrapper">
+  {% render 'breadcrumbs', show_home: true, show_back_arrow: false %}
+
+  <div class="{{ base_class }}">
+    <div class="{{ base_class }}__media">
+      {% assign swiper_base_class = base_class | append: "__media" %}
+      {% render 'product-media-slider', product: product, base_class: swiper_base_class, variant_change_behavior: section.settings.variant_change_behavior %}
+    </div>
+
+    <div class="{{ base_class }}__info-wrapper">
+      <div class="{{ base_class }}__title-info">
+          {% render 'product-title-info', product: product, base_class: base_class %}
+      </div>
+      <div class="{{ base_class }}__info">
+        {% render 'product-form' %}
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="{{ base_class }}__accordion-wrapper">
+    {% render 'accordion', title1: "Description", content1: product.description, title2: "Metafield", content2: product.metafields.product.description2 %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product media gallery"
+      },
+      {
+        "type": "select",
+        "id": "variant_change_behavior",
+        "label": "Variant change behavior",
+        "default": "scroll-to-variant-image",
+        "options": [
+          {
+            "value": "scroll-to-variant-image",
+            "label": "Scroll to variant image"
+          },
+          {
+            "value": "replace-slides",
+            "label": "Replace slides"
+          },
+          {
+            "value": "none",
+            "label": "No action"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

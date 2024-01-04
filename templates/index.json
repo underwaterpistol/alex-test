@@ -1,0 +1,407 @@
+{
+  "sections": {
+    "main": {
+      "type": "hero_slider",
+      "blocks": {
+        "c134cb6b-8982-43f8-bd2a-9a3a86aab8f2": {
+          "type": "hero_slide",
+          "settings": {
+            "desktop_image": "",
+            "mobile_image": "",
+            "show_overlay": false,
+            "overlay_bg": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 1) 100%)",
+            "show_content_box": true,
+            "alignment": "right",
+            "colour": "linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(255, 192, 203, 1) 100%)",
+            "text_colour": "#000000",
+            "title": "Summer Shop",
+            "subtitle": "New In",
+            "blurb": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing.",
+            "cta_text": "Shop Now",
+            "cta_link": "shopify:\/\/collections\/all",
+            "button_colour": "#000000",
+            "button_hover_color": "#ffffff",
+            "button_text_colour": "#ffffff",
+            "button_text_hover_colour": "#000000",
+            "h1": true
+          }
+        },
+        "00c6ea32-a67f-442c-a875-3a351f46184a": {
+          "type": "hero_slide",
+          "settings": {
+            "desktop_image": "",
+            "mobile_image": "",
+            "show_overlay": false,
+            "overlay_bg": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 1) 100%)",
+            "show_content_box": true,
+            "alignment": "center",
+            "colour": "#ffffff",
+            "text_colour": "#000000",
+            "title": "Summer Shop",
+            "subtitle": "New In",
+            "blurb": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing.",
+            "cta_text": "Shop Now",
+            "cta_link": "shopify:\/\/collections\/all",
+            "button_colour": "#000000",
+            "button_hover_color": "#ffffff",
+            "button_text_colour": "#ffffff",
+            "button_text_hover_colour": "#000000",
+            "h1": false
+          }
+        }
+      },
+      "block_order": [
+        "c134cb6b-8982-43f8-bd2a-9a3a86aab8f2",
+        "00c6ea32-a67f-442c-a875-3a351f46184a"
+      ],
+      "settings": {
+        "side_margins": false,
+        "margin_top": 0,
+        "margin_bottom": 4
+      }
+    },
+    "cf02740c-5989-4ad4-9e3c-301eb429ca99": {
+      "type": "hero_slide_banner",
+      "settings": {
+        "side_margins": false,
+        "margin_top": 0,
+        "margin_bottom": 4,
+        "desktop_image": "",
+        "mobile_image": "",
+        "show_overlay": true,
+        "overlay_bg": "radial-gradient(circle at center right,  rgba(0,0,0,100) 0%, rgba(0,0,0,50) 20%, rgba(0,0,0,0) 100%)",
+        "show_content_box": true,
+        "alignment": "right",
+        "colour": "",
+        "text_colour": "#ffffff",
+        "title": "Summer Shop",
+        "subtitle": "New In",
+        "blurb": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing.",
+        "cta_text": "Shop Now",
+        "cta_link": "shopify:\/\/collections\/all",
+        "button_colour": "#000000",
+        "button_hover_color": "#ffffff",
+        "button_text_colour": "#ffffff",
+        "button_text_hover_colour": "#000000",
+        "h1": false
+      }
+    },
+    "ec4d6001-2b47-4ece-99ae-7af948123afc": {
+      "type": "product_slider",
+      "settings": {
+        "side_margins": true,
+        "margin_top": 0,
+        "margin_bottom": 4,
+        "title": "Bestsellers",
+        "sub_title": "Our",
+        "show_cta": true,
+        "cta_text": "Shop All",
+        "cta_link": "shopify:\/\/collections\/all",
+        "button_colour": "#000000",
+        "button_hover_color": "#ffffff",
+        "button_text_colour": "#ffffff",
+        "button_text_hover_colour": "#000000",
+        "product_feed": "collection",
+        "collection": "frontpage",
+        "product_list": [
+
+        ]
+      }
+    },
+    "cead4fa3-b8d0-4cd8-bf87-02dcc661531a": {
+      "type": "collection_slider",
+      "blocks": {
+        "9a8c087b-1040-40b1-badc-8358981727aa": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Flatlay",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "fa131ada-cd6e-45e1-b054-03182ff668d3": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Summer",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "83705f43-862c-41b9-a3cd-5b8f241245db": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Sunset",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "a22a8294-ae47-4933-9da0-86e66d33a82d": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Flatlay Two",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "3013acb1-c273-4a56-a1cf-296bc3e89f1e": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Summer Two",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "1a899e8d-b333-4779-ba40-031a0729a7b2": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Sunset Two",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "59a74506-56d0-48a4-8b50-a27a59043f3f": {
+          "type": "collection",
+          "settings": {
+            "background_color": "#d2eaf9",
+            "image": "",
+            "title": "Flatlay Three",
+            "description": "Description",
+            "url": "shopify:\/\/collections\/frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "9a8c087b-1040-40b1-badc-8358981727aa",
+        "fa131ada-cd6e-45e1-b054-03182ff668d3",
+        "83705f43-862c-41b9-a3cd-5b8f241245db",
+        "a22a8294-ae47-4933-9da0-86e66d33a82d",
+        "3013acb1-c273-4a56-a1cf-296bc3e89f1e",
+        "1a899e8d-b333-4779-ba40-031a0729a7b2",
+        "59a74506-56d0-48a4-8b50-a27a59043f3f"
+      ],
+      "settings": {
+        "title": "Shop by range",
+        "margin_top": 0,
+        "margin_bottom": 4
+      }
+    },
+    "0b4f45ed-a6e7-474e-8297-b71399d08f28": {
+      "type": "blog_slider",
+      "blocks": {
+        "24bedc84-4737-4e8a-9052-579a47c5ba1c": {
+          "type": "blog-post",
+          "settings": {
+            "article": "news\/example-blog-post",
+            "blog_title": "Health"
+          }
+        },
+        "cb815736-fc6d-43b8-8981-df543cc27c62": {
+          "type": "blog-post",
+          "settings": {
+            "article": "news\/example-blog-post",
+            "blog_title": "Fishing"
+          }
+        },
+        "630799ef-07f4-4a0f-947a-a59229c5799d": {
+          "type": "blog-post",
+          "settings": {
+            "article": "news\/example-blog-post",
+            "blog_title": "Sunset"
+          }
+        },
+        "558e48ee-463b-413a-aeb9-03f34f477bed": {
+          "type": "blog-post",
+          "settings": {
+            "article": "news\/example-blog-post",
+            "blog_title": "Sea"
+          }
+        },
+        "52ebd35c-ca7a-4e11-aab9-ec70087f7c32": {
+          "type": "blog-post",
+          "settings": {
+            "article": "news\/example-blog-post",
+            "blog_title": "Fishing in Sunset"
+          }
+        }
+      },
+      "block_order": [
+        "24bedc84-4737-4e8a-9052-579a47c5ba1c",
+        "cb815736-fc6d-43b8-8981-df543cc27c62",
+        "630799ef-07f4-4a0f-947a-a59229c5799d",
+        "558e48ee-463b-413a-aeb9-03f34f477bed",
+        "52ebd35c-ca7a-4e11-aab9-ec70087f7c32"
+      ],
+      "settings": {
+        "title": "Blog",
+        "margin_top": 0,
+        "margin_bottom": 4,
+        "cta": "View All",
+        "cta_link": "shopify:\/\/blogs\/news",
+        "article_cta": "Read More"
+      }
+    },
+    "9c172fd5-f6ac-4442-a42b-8d72464066c3": {
+      "type": "icons_banner",
+      "blocks": {
+        "15ec8e8c-5259-41b2-8617-1521fb368bf0": {
+          "type": "icon",
+          "settings": {
+            "icon": "<svg class=\"star-svg\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"21px\" height=\"20px\" xmlns:xlink=\"http:\/\/www.w3.org\/2000\/xlink\">\n<path d=\"M0,0.054V20h21V0.054H0z M15.422,18.129l-5.264-2.768l-5.265,2.768l1.006-5.863L1.64,8.114l5.887-0.855\n\tl2.632-5.334l2.633,5.334l5.885,0.855l-4.258,4.152L15.422,18.129z\"><\/path>\n<\/svg>",
+            "icon_text": "Free UK Delivery"
+          }
+        },
+        "1af0405b-d177-48bc-a0d3-97404fd7eb12": {
+          "type": "icon",
+          "settings": {
+            "icon": "<svg class=\"star-svg\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"21px\" height=\"20px\" xmlns:xlink=\"http:\/\/www.w3.org\/2000\/xlink\">\n<path d=\"M0,0.054V20h21V0.054H0z M15.422,18.129l-5.264-2.768l-5.265,2.768l1.006-5.863L1.64,8.114l5.887-0.855\n\tl2.632-5.334l2.633,5.334l5.885,0.855l-4.258,4.152L15.422,18.129z\"><\/path>\n<\/svg>",
+            "icon_text": "Next Day Delivery"
+          }
+        },
+        "b6ef0f59-b909-45b5-8272-214e45555c69": {
+          "type": "icon",
+          "settings": {
+            "icon": "<svg class=\"star-svg\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"21px\" height=\"20px\" xmlns:xlink=\"http:\/\/www.w3.org\/2000\/xlink\">\n<path d=\"M0,0.054V20h21V0.054H0z M15.422,18.129l-5.264-2.768l-5.265,2.768l1.006-5.863L1.64,8.114l5.887-0.855\n\tl2.632-5.334l2.633,5.334l5.885,0.855l-4.258,4.152L15.422,18.129z\"><\/path>\n<\/svg>",
+            "icon_text": "5* Reviews"
+          }
+        },
+        "4b419e2d-8a32-4105-aac0-b82d701022ca": {
+          "type": "icon",
+          "settings": {
+            "icon": "<svg class=\"star-svg\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"21px\" height=\"20px\" xmlns:xlink=\"http:\/\/www.w3.org\/2000\/xlink\">\n<path d=\"M0,0.054V20h21V0.054H0z M15.422,18.129l-5.264-2.768l-5.265,2.768l1.006-5.863L1.64,8.114l5.887-0.855\n\tl2.632-5.334l2.633,5.334l5.885,0.855l-4.258,4.152L15.422,18.129z\"><\/path>\n<\/svg>",
+            "icon_text": "New Pet Section"
+          }
+        }
+      },
+      "block_order": [
+        "15ec8e8c-5259-41b2-8617-1521fb368bf0",
+        "1af0405b-d177-48bc-a0d3-97404fd7eb12",
+        "b6ef0f59-b909-45b5-8272-214e45555c69",
+        "4b419e2d-8a32-4105-aac0-b82d701022ca"
+      ],
+      "settings": {
+        "icon_color": "#000000",
+        "background_color": "#ffffff"
+      }
+    },
+    "2f92d482-82a0-400f-b688-0d6f678ed983": {
+      "type": "content_with_media",
+      "settings": {
+        "left_content": false,
+        "content_bg": "#f2f2f2",
+        "colour_mode": "dark",
+        "image": "",
+        "image_mobile": "",
+        "background_video": "",
+        "title": "Lorem Ipsum",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer congue tincidunt massa ultricies venenatis. Nullam vehicula nibh bibendum, iaculis orci eget, cursus turpis.<\/p>",
+        "show_cta": true,
+        "cta_url": "",
+        "cta_text": "Shop Now",
+        "show_cta2": true,
+        "cta2_url": "",
+        "cta2_text": "Discover"
+      }
+    },
+    "697bc4ac-1bcf-4c36-8d1b-9e7c784c2b81": {
+      "type": "info_columns",
+      "blocks": {
+        "9d450bf0-87bf-419e-8f86-9d34c3895bbc": {
+          "type": "item",
+          "settings": {
+            "image": "",
+            "title": "Lorem ipsum",
+            "subtitle": "",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_url": "#",
+            "button_text": "Read more"
+          }
+        },
+        "4b142202-7bc0-4c0a-a2bc-d6706f07ad7f": {
+          "type": "item",
+          "settings": {
+            "image": "",
+            "title": "Lorem ipsum",
+            "subtitle": "",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_url": "#",
+            "button_text": "Read more"
+          }
+        },
+        "1f881962-d78c-47bf-bb57-e26c21eb3fb8": {
+          "type": "item",
+          "settings": {
+            "image": "",
+            "title": "Lorem ipsum",
+            "subtitle": "",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_url": "#",
+            "button_text": "Read more"
+          }
+        },
+        "8fd547c9-955c-48c6-8834-7a21a7ddf001": {
+          "type": "item",
+          "settings": {
+            "image": "",
+            "title": "Lorem ipsum",
+            "subtitle": "",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_url": "#",
+            "button_text": "Read more"
+          }
+        }
+      },
+      "block_order": [
+        "9d450bf0-87bf-419e-8f86-9d34c3895bbc",
+        "4b142202-7bc0-4c0a-a2bc-d6706f07ad7f",
+        "1f881962-d78c-47bf-bb57-e26c21eb3fb8",
+        "8fd547c9-955c-48c6-8834-7a21a7ddf001"
+      ],
+      "settings": {
+      }
+    },
+    "b8a7f3e6-fd2e-427b-8b18-d724cabae199": {
+      "type": "hero_slide_newsletter",
+      "settings": {
+        "side_margins": false,
+        "margin_top": 2,
+        "margin_bottom": 2,
+        "desktop_image": "",
+        "mobile_image": "",
+        "show_overlay": true,
+        "overlay_bg": "linear-gradient(274deg, rgba(255, 211, 226, 0), rgba(168, 255, 251, 0), rgba(0, 0, 0, 1) 59%)",
+        "show_content_box": true,
+        "alignment": "left",
+        "colour": "",
+        "text_colour": "#ffffff",
+        "title": "Sign up to recieve HUGE discounts",
+        "subtitle": "Our Newsletter",
+        "klaviyo_list_id": "",
+        "form_text": "Be the first to hear about new products, competitions and VIP discounts",
+        "form_button_text": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cf02740c-5989-4ad4-9e3c-301eb429ca99",
+    "ec4d6001-2b47-4ece-99ae-7af948123afc",
+    "cead4fa3-b8d0-4cd8-bf87-02dcc661531a",
+    "0b4f45ed-a6e7-474e-8297-b71399d08f28",
+    "9c172fd5-f6ac-4442-a42b-8d72464066c3",
+    "2f92d482-82a0-400f-b688-0d6f678ed983",
+    "697bc4ac-1bcf-4c36-8d1b-9e7c784c2b81",
+    "b8a7f3e6-fd2e-427b-8b18-d724cabae199"
+  ]
+}

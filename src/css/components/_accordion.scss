@@ -1,0 +1,32 @@
+.accordion {
+  &__item {
+    &:first-child{
+      border-top: 1px solid #0000001F;
+    }
+    border-bottom: 1px solid #0000001F;
+    &__trigger {
+      &:checked ~ .accordion__item__title .accordion__item__dropdown-arrow {
+        transform: rotate(180deg)
+      }
+      &:checked ~ .accordion__item__content {
+        max-height: 2000px;
+        padding-bottom: 16px;
+      }
+    }
+    &__title {
+      @extend .p;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      cursor: pointer;
+    }
+    &__dropdown-arrow {
+      transition: all .3s ease;
+    }
+    &__content {
+      max-height: 0;
+      overflow: hidden;
+    }
+  }
+}

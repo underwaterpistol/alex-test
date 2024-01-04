@@ -1,0 +1,220 @@
+<!--
+    NOTE: This is a banner component that displays a slide with text and a button on a square box.
+    One image can be added along with a title, description and a call to action link.
+    You can edit the styles for this component in : 
+    -- src/css/components/_hero-slide.scss
+-->
+
+<div 
+class="{% if section.settings.side_margins %}hero-slide__wrapper{% endif %}"
+style="
+    margin-top: {{ section.settings.margin_top }}rem; 
+    margin-bottom: {{ section.settings.margin_bottom }}rem;
+    "
+>  
+
+{% liquid  
+    if template contains 'collection' 
+        assign title = collection.title
+        assign blurb = collection.description
+        if collection.metafields.collections.desktop_hero_image != blank
+            assign desktop_hero_image = collection.metafields.collections.desktop_hero_image.value
+        else
+            assign desktop_hero_image = section.settings.desktop_image
+        endif
+        if collection.metafields.collections.mobile_hero_image != blank
+            assign mobile_hero_image = collection.metafields.collections.mobile_hero_image.value
+        else
+            assign mobile_hero_image = section.settings.mobile_image
+        endif
+    else
+        assign title = section.settings.title
+        assign blurb = section.settings.blurb
+        assign desktop_hero_image = section.settings.desktop_image
+        assign mobile_hero_image = section.settings.mobile_image
+    endif
+%}
+
+{% render 'hero-slide', 
+    desktop_image: desktop_hero_image, 
+    mobile_image: mobile_hero_image,
+    show_content_box: section.settings.show_content_box,
+    colour: section.settings.colour,
+    text_colour: section.settings.text_colour,
+    title: title,
+    subtitle: section.settings.subtitle,
+    blurb: blurb,
+    cta_text: section.settings.cta_text,
+    cta_link: section.settings.cta_link,
+    button_colour: section.settings.button_colour,
+    button_hover_color: section.settings.button_hover_color,
+    button_text_colour: section.settings.button_text_colour,
+    button_text_hover_colour: section.settings.button_text_hover_colour,
+    id: section.id,
+    position: section.settings.alignment,
+    show_overlay: section.settings.show_overlay,
+    overlay: section.settings.overlay_bg,
+    h1: section.settings.h1
+%}
+</div>
+
+{% schema %}
+{
+    "name": "Hero Slide Banner",
+    "tag": "section",
+    "class": "hero_slide_banner",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "side_margins",
+            "label": "Side Margins",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Top",
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Bottom",
+            "default": 2
+        },
+        {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_overlay",
+            "label": "Show Overlay",
+            "default": false
+        },
+        {
+            "type": "color_background",
+            "id": "overlay_bg",
+            "label": "Overlay Background",
+            "default": "linear-gradient(#ffffff, #000000)"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_content_box",
+            "label": "Show Content Box?",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alignment",
+            "options": [
+                {
+                "value": "left",
+                "label": "Left"
+                },
+                {
+                "value": "center",
+                "label": "Center"
+                },
+                {
+                "value": "right",
+                "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "color_background",
+            "id": "colour",
+            "label": "Colour",
+            "default": "linear-gradient(#ffffff, #000000)"
+        },
+        {
+            "type": "color",
+            "id": "text_colour",
+            "label": "Text Colour",
+            "default": "#000"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Summer Shop"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Sub Title",
+            "default": "New In"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "blurb",
+            "label": "Blurb",
+            "default": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing."
+        },
+        {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text",
+            "default": "Shop Now"
+        },
+        {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link",
+            "default": "/collections/all"
+        },
+        {
+            "type": "color",
+            "id": "button_colour",
+            "label": "Button Colour",
+            "default": "#000"
+        },
+        {
+            "type": "color",
+            "id": "button_hover_color",
+            "label": "Button Hover Colour",
+            "default": "#FFF"
+        },
+        {
+            "type": "color",
+            "id": "button_text_colour",
+            "label": "Button Text Colour",
+            "default": "#FFF"
+        },
+        {
+            "type": "color",
+            "id": "button_text_hover_colour",
+            "label": "Button Text Hover Colour",
+            "default": "#000"
+        },
+        {
+            "type": "checkbox",
+            "id": "h1",
+            "label": "Show title as H1",
+            "default": false
+        }
+    ],
+    "presets": [
+        {
+        "name": "Hero Slide Banner"
+        }
+    ]
+}
+{% endschema %}

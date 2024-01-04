@@ -1,0 +1,116 @@
+<!--
+    NOTE: This is banner component that displays text and a button alongside a product carousel.
+    One swiper carousel with many products can be added along with a title, subtitle and a call to action link.
+-->
+
+{% comment %}
+  This snippet can be rendered on any page.
+  Usage :
+  {% render 'product-slider', 
+    products: collection.products,
+    title: text, 
+    sub_title: text, 
+    cta_text: text,
+    cta_link: text,
+    button_colour: #FFF, 
+    button_hover_color: #000, 
+    button_text_colour: #000,
+    button_text_hover_colour: #FFF,
+    id: section.id,
+    show_cta: true,
+    %}
+
+{% endcomment %}
+
+{% liquid
+  assign base_class = "product-slider"
+  assign show_quick_view = show_quick_view | default: true, allow_false: true
+%}
+
+<style>
+    .custom-{{ id }}-button {
+        background-color: {{ button_colour }};
+        color: {{ button_text_colour }};
+    }
+    .custom-{{ id }}-button:hover {
+        background-color: {{ button_hover_color }};
+        color: {{ button_text_hover_colour }};
+    }
+</style>
+
+{% if sub_title %}
+    <div class="{{ base_class }}__sub-title">
+        <span class="{{ base_class }}__sub-title__text">{{ sub_title }}</span>
+    </div>
+{% endif %}
+
+
+{% if title %}
+    <h2 class="{{ base_class }}__title">
+        <span class="{{ base_class }}__title__text">{{ title }}</span>
+    </h2>
+{% endif %}
+
+{% if products %}
+    <div class="{{ base_class }} {{ base_class }}-{{ id }}">
+            <div class="{{ base_class }}__swiper-button-prev {{ base_class }}__swiper-button-prev-{{ id }}">
+                {% render 'icons', icon: 'arrow-left' %}
+            </div>
+            <div class="{{ base_class }}__swiper-button-next {{ base_class }}__swiper-button-next-{{ id }}">
+                {% render 'icons', icon: 'arrow-right' %}
+            </div>
+        <div class="swiper {{ base_class }}__swiper-{{ id }}">
+            <div class="swiper-wrapper {{ base_class }}__swiper-wrapper">
+                {% for product in products limit: 8 %}
+                    <div class="swiper-slide {{ base_class }}__swiper-slide">
+                        {% render 'product-card', product: product %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if show_cta == true %}
+    <div class="{{ base_class }}__cta">
+        <a href="{{ cta_link }}" style="text-decoration: none;">
+        <button class="button custom-{{ id }}-button" href="{{ cta_link }}">{{ cta_text }}</button>
+        </a>
+    
+    </div>
+{% endif %}
+
+<!-- Initialize Swiper -->
+<script>
+    // console.log('cta link', '{{ cta_link }}')
+    document.addEventListener('swiperReady', () => {
+        new Swiper(".{{ base_class }}__swiper-{{ id }}", {
+            slidesPerView: 1.2,
+            spaceBetween: 15,
+            breakpoints: {
+                768: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+                },
+                1068: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+                },
+                1268: {
+                slidesPerView: 4,
+                spaceBetween: 15,
+                }
+            },
+            navigation: {
+                nextEl: ".{{ base_class }}__swiper-button-next-{{ id }}",
+                prevEl: ".{{ base_class }}__swiper-button-prev-{{ id }}",
+            },
+            rewind: true,
+        })
+    })
+
+    window.Quickshop ? window.Quickshop.init() : 
+      document.addEventListener('quickshopReady', () => {
+        Quickshop.init();
+      })
+</script>

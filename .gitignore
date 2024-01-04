@@ -1,0 +1,6 @@
+node_modules
+assets/main.css
+assets/main.js
+assets/_*.js
+.parcel-cache
+temp_settings

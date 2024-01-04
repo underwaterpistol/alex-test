@@ -1,0 +1,46 @@
+
+{% liquid
+assign base_class = "related-products" 
+%}
+<div class="{{ base_class }}"></div>
+
+<script>
+document.addEventListener("productRecommendationsReady", async function() {
+
+// Get reco markup
+const recoSection = 'product_related_products_recos';//sepatate section for markup only
+const { json, markup } = await ProductRecommendations.getRecommendations({{ product.id }}, recoSection, 8);
+
+// Put reco markup inside product list
+if (markup) {
+  const recomendationsSlider = document.querySelector('.{{ base_class }}');
+  recomendationsSlider.innerHTML = markup;
+  const relatedSlider = new Swiper('.{{ base_class }}__slider__wrapper', {
+    //loop: true,
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+    },
+    navigation: {
+      nextEl: '.{{ base_class }}__navigation__button--next',
+    } 
+  });
+  Quickshop.init();
+}
+
+
+
+
+});
+</script>
+
+{% schema %}
+{
+"name": "Related Products",
+"class":"related-products-section"
+}
+{% endschema %}

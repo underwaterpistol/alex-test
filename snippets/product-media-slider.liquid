@@ -1,0 +1,133 @@
+{% comment %}
+    Renders a list of product's images in a slideshow
+
+    Accepts:
+    - product: {Object} Product Liquid object
+    - base_class: {String} Adds a class to the element
+
+    Usage:
+    {% render 'product-media-slider', product: product, base_class:base_class %}
+{% endcomment %}
+
+{% liquid
+  assign base_class = base_class | default: "product__media"
+  assign variant_change_behavior = variant_change_behavior | default: "scroll-to-variant-image"
+%}
+
+<div class="{{ base_class }}__swiper swiper" {% if product.title contains "Gift Card" %} style="height:unset!important;" {% endif %}>
+    <div class="swiper-wrapper">
+        {% for media in product.media %}
+          <div class="swiper-slide {{ base_class }}__swiper__slide">
+            {% render 'product-media', media: media, forloop: forloop %}
+          </div>
+        {% endfor %}
+    </div>
+
+    <div class="{{ base_class }}__swiper__navigation">
+        <div class="{{ base_class }}__swiper__navigation__container">
+            <div class="{{ base_class }}__swiper__navigation__button  {{ base_class }}__swiper__navigation__button--prev">
+              {% render 'icons', icon: 'arrow-left' %}
+            </div>
+            <div class="{{ base_class }}__swiper__navigation__button  {{ base_class }}__swiper__navigation__button--next">
+              {% render 'icons', icon: 'arrow-right' %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div thumbsSlider="" class="swiper {{ base_class }}__thumbnails">
+    <div class="swiper-wrapper">
+      {% for media in product.media %}
+        <div class="swiper-slide {{ base_class }}__swiper__slide">
+          {% render 'product-media', media: media, thumbnails: true %}
+        </div>
+      {% endfor %}
+    </div>
+</div>
+
+<script>
+  (function() {
+    if (window.Swiper) {
+      initSwiper();
+    } else {
+      document.addEventListener('swiperReady', initSwiper);
+    }
+
+    function initSwiper() {
+      const thumbnails = new Swiper(".{{ base_class }}__thumbnails", {
+        spaceBetween: 10,
+        slidesPerView: 3.4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+          768: {
+            slidesPerView: 6,
+            spaceBetween: 12,
+          },
+        }
+      });
+
+      const productMediaSlider = new Swiper(".{{ base_class }}__swiper", {
+        spaceBetween: 0,
+        navigation: {
+          nextEl: ".{{ base_class }}__swiper__navigation__button--next",
+          prevEl: ".{{ base_class }}__swiper__navigation__button--prev",
+        },
+        thumbs: {
+          swiper: thumbnails,
+        },
+        on: {
+          init: function() {
+            const variantChangeBehavior = '{{ variant_change_behavior }}';
+            // If no variant change behavior is set, then do nothing
+            if (!variantChangeBehavior || variantChangeBehavior === 'none') return;
+
+            /**
+             * These variables are not used if the behavior is not 'replace-slides'
+             * so we set them to null and assign them only if needed
+             */
+            let variantMediaIndexes = null;
+            let variantSlides = null;
+            let variantThumbnailsSlides = null;
+            if (variantChangeBehavior === 'replace-slides') {
+              /**
+               * getVariantImageIndexes and getVariantSlides are defined in utils.js and
+               * exported to window in main.js
+               */
+              variantMediaIndexes = window.getVariantImageIndexes({{ product.variants | json }});
+              variantSlides = window.getVariantSlides(variantMediaIndexes, this.slides);
+              variantThumbnailsSlides = window.getVariantSlides(variantMediaIndexes, thumbnails.slides);
+            }
+
+            document.addEventListener('variantChanged', (event) => {
+              if (variantChangeBehavior === 'scroll-to-variant-image') {
+                const variantMediaPosition = event.detail.variantMediaPosition;
+                /**
+                 * Media position starts at '1' while swiper slides index start at '0'
+                 * so we need to substract 1 to get the slide index
+                 */
+                if (variantMediaPosition && this.slides[variantMediaPosition - 1]) this.slideTo(variantMediaPosition - 1);
+              } else if (variantChangeBehavior === 'replace-slides') {
+                this.removeAllSlides();
+                thumbnails.removeAllSlides();
+                variantSlides[event.detail.variant].forEach((slide, index) => {
+                  this.appendSlide(slide);
+                  /**
+                   * We also need to update the thumbnails slider, rather than looping through the thumbnails
+                   * we use the same variantSlides index to get the corresponding thumbnail slide as they 
+                   * should have the same order
+                   */
+                  thumbnails.appendSlide(variantThumbnailsSlides[event.detail.variant][index]);
+                });
+                // This update is needed any time you mutate a Swiper instance
+                this.update();
+                thumbnails.update();
+              }
+            });
+          },
+        }
+      });
+    }
+  })();
+</script>

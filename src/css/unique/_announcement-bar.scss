@@ -1,0 +1,21 @@
+.announcement-bar{
+
+    height: 30px;
+    max-width: 100vw;
+    overflow: hidden;
+
+    &__container {
+        height: 100%;
+    }
+    &__message{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        & *{
+            text-decoration: none;
+            text-align: center;
+        }
+    }
+}
+

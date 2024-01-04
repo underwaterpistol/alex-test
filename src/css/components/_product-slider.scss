@@ -1,0 +1,48 @@
+.product-slider {
+    width: 100%;
+    position: relative;
+    &__wrapper{
+        @extend .container;
+    }
+    &__swiper-button-prev, &__swiper-button-next{
+        position: absolute;
+        top: 40%;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 14px;
+    }
+    &__swiper-button-next{
+        right: 0;
+    }
+    &__swiper-slide.hide-on-mobile {
+        @media #{$mobile}{
+            display: none;
+        }
+    }
+    &__title{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        &__text{
+            @extend .h2;
+        }
+    }
+    &__sub-title{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+        &__text{
+            @extend .eyebrow-text;
+        }
+    }
+    &__cta{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}

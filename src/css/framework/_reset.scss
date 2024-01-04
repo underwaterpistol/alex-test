@@ -1,0 +1,118 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* 62.5% of 16px browser font size is 10px so we can use 1.2rem for 12px and 1.6rem for 16px etc */
+  font-size: 62.5%;
+
+  min-height: 100%;
+  padding-bottom: 0 !important;
+  &:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  background-color: $brandWhite;
+  min-height: 100vh;
+  @extend .p;
+
+  /* 16px */
+  font-size: 1.6rem;
+
+  &.minicart-is-open {
+    overflow: hidden;
+  }
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  height:auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+h1 { @extend .h1; }
+h2 { @extend .h2; }
+h3 { @extend .h3; }
+h4 { @extend .h4; }
+h5 { @extend .h5; }
+p { @extend .p; }
+a { @extend .a; }
+small { @extend .small; }
+
+#preview-bar-iframe {
+  opacity: 1;
+  pointer-events: all;
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.preview-bar-toggle {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  width: 30px;
+  height: 30px;
+  background-color: $brandWhite;
+  @extend .fade-on-hover;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__icon {
+    fill: $brandBody;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

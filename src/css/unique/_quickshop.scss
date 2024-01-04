@@ -1,0 +1,45 @@
+.quickshop {
+  &__header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__close-container {
+    padding: 0 0.5rem;
+    @media #{$mobile} {
+      padding: 0 0.5rem 0.25rem;
+    }
+  }
+  &__close {
+    font-size: $default-font-size;
+    color: $brandBody;
+    cursor: pointer;
+    @extend .fade-on-hover;
+  }
+  &__body {
+    @extend .product;
+    max-width: 100%;
+    padding: 0 1rem 1rem;
+  }
+  &__media {
+    &__swiper {
+      @extend .product__media__swiper;
+      &__navigation {
+        @extend .product__media__swiper__navigation;
+        &__container {
+          @extend .container;
+        }
+        &__button {
+          @extend .product__media__swiper__navigation__button;
+          &--next {
+            @extend .product__media__swiper__navigation__button--next;
+          }
+        }
+      }
+    }
+    &__thumbnails {
+      @extend .product__media__thumbnails;
+    }
+  }
+}

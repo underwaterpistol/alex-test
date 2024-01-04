@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{ shop.locale }}">
+<head>
+  {% comment %} Meta information {% endcomment %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="description" content="{{ page_description }}" />
+
+
+  {% if settings.favicon != nil %}
+    <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 32 }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+  {% endif %}
+
+  {% comment %} CDNs {% endcomment %}
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="preload" href="{{ 'main.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'main.css' | asset_url }}" as="style" />
+
+  {% comment %} Scripts and utils {% endcomment %}
+  {% render 'header-scripts' %}
+  <script defer src="{{ 'main.js' | asset_url }}"></script>
+
+  {% comment %} Styles {% endcomment %}
+  <link rel="stylesheet" href="{{ 'shopify-settings.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
+
+  {% comment %} Required header content (trekkie etc) {% endcomment %}
+  {{ content_for_header }}
+  
+</head>
+<body class="template-{{ template.name }}">
+  <a class="visually-hidden focusable skip-link" href="#main-content">Skip to content</a>
+  
+  {% section 'announcement-bar' %}
+
+  {% section 'header' %}
+
+  {% section 'minicart' %}
+
+  <main id="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+  {% section 'app_optimisation' %}
+</body>
+</html>

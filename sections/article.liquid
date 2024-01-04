@@ -1,0 +1,31 @@
+{% liquid
+  assign published_at = article.published_at | date: "%B %d, %Y"
+%}
+
+<div class="article-main">
+  {% render 'breadcrumbs', show_home: false, show_back_arrow: true %}
+  <div class="article-main__container">
+
+    <div class="article-main__heading">
+      <span class="article-main__subtitle">{{ published_at }}</span>
+      <h1 class="article-main__title">{{ article.title }}</h1>
+    </div>
+
+    <div class="article-main__content">
+      {{ article.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Article",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

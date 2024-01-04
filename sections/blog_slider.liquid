@@ -1,0 +1,138 @@
+{% assign base_class = "blog-slider" %}
+{% assign id = section.id %}
+<section  class="{{ base_class }}__wrapper" 
+    style="
+        margin-top: {{ section.settings.margin_top }}rem; 
+        margin-bottom: {{ section.settings.margin_bottom }}rem;"
+>
+    {% if section.settings.title %}
+        <div class="{{ base_class }}__header">
+            <h2 class="{{ base_class }}__title">{{ section.settings.title }}</h2>
+            <a class="{{ base_class }}__cta hide-on-mobile" href="{{ section.settings.cta_link }}">{{ section.settings.cta }}</a>
+        </div>
+    {% endif %}
+
+    <div class="{{ base_class }}__swiper-container swiper-container swiper swiper-{{ section.id }}">
+        <div class="{{ base_class }}__swiper-button-prev {{ base_class }}__swiper-button-prev-{{ id }}">
+            {% render 'icons', icon: 'arrow-left' %}
+        </div>
+        <div class="{{ base_class }}__swiper-button-next {{ base_class }}__swiper-button-next-{{ id }}">
+            {% render 'icons', icon: 'arrow-right' %}
+        </div>
+        <div class="{{ base_class }}__swiper-wrapper swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide ">
+                    {% render 'article-card', section: section, block: block, article: block.settings.article %}
+                </div>
+            {% endfor %}
+        </div>  
+    </div>
+
+    <div class="{{ base_class }}__footer">
+        <a class="{{ base_class }}__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta }}</a>
+    </div>
+
+
+    <script>
+        document.addEventListener("swiperReady", function() {
+            const blogCarousel = new Swiper('.swiper-{{ section.id }}', {
+                slidesPerView: 1.2,
+                spaceBetween: 15,
+                breakpoints: {
+                    768: {
+                    slidesPerView: 2,
+                    spaceBetween: 15,
+                    },
+                    1068: {
+                    slidesPerView: 3,
+                    spaceBetween: 15,
+                    },
+                    1268: {
+                    slidesPerView: 4,
+                    spaceBetween: 15,
+                    }
+                },
+                navigation: {
+                    nextEl: ".{{ base_class }}__swiper-button-next-{{ id }}",
+                    prevEl: ".{{ base_class }}__swiper-button-prev-{{ id }}",
+                },
+                rewind: true,
+            })
+        })
+    </script>
+
+{% schema %}
+  {
+    "name": "Blog Slider",
+    "class":"blog-slider",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Blog"
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Top",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Bottom",
+            "default": 2
+        },
+        {
+            "type": "text",
+            "id": "cta",
+            "label": "CTA",
+            "default": "View All"
+        }, 
+        {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+        },
+        {
+            "type": "text",
+            "id": "article_cta",
+            "label": "Article CTA",
+            "default": "Read More"
+        }
+    ],
+    "blocks":[
+      {
+          "type": "blog-post",
+          "name": "Blog Post",
+          "settings": [
+              {
+                  "type": "article",
+                  "id": "article",
+                  "label": "Blog Post to Show"
+              },
+              {
+                "type": "text",
+                "id": "blog_title",
+                "label": "Blog Title",
+                "default": "Health"
+              }
+          ]
+      }
+    ],    
+    "presets": [
+      {
+        "name": "Blog Slider"
+      }
+    ]
+  }
+{% endschema %}

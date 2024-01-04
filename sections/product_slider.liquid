@@ -1,0 +1,160 @@
+{% liquid
+    assign base_class = "product-slider"
+    if section.settings.product_feed == 'custom'
+        assign products = section.settings.product_list
+    elsif section.settings.product_feed == 'collection'
+        assign products = section.settings.collection.products
+    elsif section.settings.product_feed == 'metafields'
+        assign products = article.metafields.custom.product_carousel.value
+    endif
+%}
+
+{% if products %}
+    <div 
+        class="{% if section.settings.side_margins %}{{ base_class }}__wrapper{% endif %}"
+        style="
+            margin-top: {{ section.settings.margin_top }}rem; 
+            margin-bottom: {{ section.settings.margin_bottom }}rem;
+            "
+    >  
+        {% render 'product-slider', 
+            products: products
+            title: section.settings.title,
+            sub_title: section.settings.sub_title,
+            cta_text: section.settings.cta_text,
+            cta_link: section.settings.cta_link,
+            button_colour: section.settings.button_colour,
+            button_hover_color: section.settings.button_hover_color,
+            button_text_colour: section.settings.button_text_colour,
+            button_text_hover_colour: section.settings.button_text_hover_colour,
+            id: section.id,
+            show_cta: section.settings.show_cta
+        %}
+
+    </div>
+{% endif %}
+
+{% schema %}
+    {
+        "name": "Product Slider",
+        "tag": "section",
+        "class": "product_slider",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "side_margins",
+                "label": "Side Margins",
+                "default": true
+            },
+            {
+                "type": "range",
+                "id": "margin_top",
+                "min": 0,
+                "max": 10,
+                "step": 1,
+                "unit": "rem",
+                "label": "Margin Top",
+                "default": 2
+            },
+            {
+                "type": "range",
+                "id": "margin_bottom",
+                "min": 0,
+                "max": 10,
+                "step": 1,
+                "unit": "rem",
+                "label": "Margin Bottom",
+                "default": 2
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Bestsellers"
+            },
+            {
+                "type": "text",
+                "id": "sub_title",
+                "label": "Sub Title",
+                "default": "Our"
+            },
+            {
+                "type": "checkbox",
+                "id": "show_cta",
+                "label": "Show CTA?",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "cta_text",
+                "label": "CTA Text"
+            },
+            {
+                "type": "url",
+                "id": "cta_link",
+                "label": "CTA Link",
+                "default": "/collections/all"
+            },
+            {
+                "type": "color",
+                "id": "button_colour",
+                "label": "Button Colour",
+                "default": "#000"
+            },
+            {
+                "type": "color",
+                "id": "button_hover_color",
+                "label": "Button Hover Colour",
+                "default": "#FFF"
+            },
+            {
+                "type": "color",
+                "id": "button_text_colour",
+                "label": "Button Text Colour",
+                "default": "#FFF"
+            },
+            {
+                "type": "color",
+                "id": "button_text_hover_colour",
+                "label": "Button Text Hover Colour",
+                "default": "#000"
+            },
+            {
+                "type": "select",
+                "id": "product_feed",
+                "label": "Product Feed",
+                "options": [
+                    {
+                    "value": "collection",
+                    "label": "Collection"
+                    },
+                    {
+                    "value": "custom",
+                    "label": "Custom"
+                    },
+                    {
+                    "value": "metafields",
+                    "label": "Metafields"
+                    }
+                ],
+                "default": "collection"
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Collection"
+            },
+            {
+                "type": "product_list",
+                "id": "product_list",
+                "label": "Custom Products",
+                "limit": 12
+            }
+        ],
+        "presets": [
+            {
+            "name": "Product Slider"
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,198 @@
+root: .
+
+extends: :nothing
+
+require: []
+
+include_categories: []
+
+exclude_categories: []
+
+ignore:
+  - node_modules/*
+  - package.json
+  - package-lock.json
+  - uwpDeployHelper.js
+  - uwpLintHelper.js
+  - uwpSettingsHelper.js
+  - .eslintrc.js
+  - .gitignore
+  - src/*
+  - templates/*
+  - config/*
+  # Templates and config files are ignored because the json module is broken.
+
+ConvertIncludeToRender:
+  enabled: true
+  ignore: []
+
+LiquidTag:
+  enabled: true
+  ignore: []
+  min_consecutive_statements: 5
+
+MissingTemplate:
+  enabled: true
+  ignore: []
+  ignore_missing: []
+
+NestedSnippet:
+  enabled: true
+  ignore: []
+  max_nesting_level: 3
+
+RequiredLayoutThemeObject:
+  enabled: true
+  ignore: []
+
+SpaceInsideBraces:
+  enabled: true
+  ignore: []
+
+SyntaxError:
+  enabled: true
+  ignore: []
+
+TemplateLength:
+  enabled: false
+
+UnknownFilter:
+  enabled: true
+  ignore: []
+
+UnusedAssign:
+  enabled: true
+  ignore: []
+
+UnusedSnippet:
+  enabled: true
+  ignore: []
+
+MatchingSchemaTranslations:
+  enabled: true
+  ignore: []
+
+MatchingTranslations:
+  enabled: true
+  ignore: []
+
+DefaultLocale:
+  enabled: false
+  ignore: []
+  # Disabled because we don't have a default locale.
+
+TranslationKeyExists:
+  enabled: true
+  ignore: []
+
+ValidHTMLTranslation:
+  enabled: true
+  ignore: []
+
+ValidJson:
+  enabled: false
+  ignore: []
+  # Disabled because it can't behave.
+  # It will often make files unreadable, or clear them completely.
+  # This is likely a bug in the plugin.
+
+ValidSchema:
+  enabled: true
+  ignore: []
+
+MissingRequiredTemplateFiles:
+  enabled: false
+  ignore: []
+  # Disabled because we skip templates in checks and this would throw an error.
+
+UndefinedObject:
+  enabled: true
+  ignore: []
+  exclude_snippets: true
+
+RequiredDirectories:
+  enabled: false
+  # Disabled because we don't use native translations.
+
+DeprecatedFilter:
+  enabled: true
+  ignore: []
+
+DeprecateLazysizes:
+  enabled: true
+  ignore: []
+
+DeprecateBgsizes:
+  enabled: true
+  ignore: []
+
+MissingEnableComment:
+  enabled: true
+  ignore: []
+
+ParserBlockingJavaScript:
+  enabled: true
+  ignore: []
+
+ParserBlockingScriptTag:
+  enabled: true
+  ignore: []
+
+AssetSizeJavaScript:
+  enabled: false
+  threshold_in_bytes: 10_000
+  ignore: []
+
+AssetSizeCSS:
+  enabled: false
+  threshold_in_bytes: 100_000
+  ignore: []
+
+AssetSizeCSSStylesheetTag:
+  enabled: false
+  threshold_in_bytes: 100_000
+  ignore: []
+
+ImgWidthAndHeight:
+  enabled: true
+  ignore: []
+
+RemoteAsset:
+  enabled: true
+  ignore: []
+
+AssetUrlFilters:
+  enabled: true
+  ignore: []
+
+ContentForHeaderModification:
+  enabled: true
+  ignore: []
+
+ImgLazyLoading:
+  enabled: true
+  ignore: []
+
+HtmlParsingError:
+  enabled: true
+  ignore: []
+
+AssetSizeAppBlockJavaScript:
+  enabled: false
+  ignore: []
+  threshold_in_bytes: 10_000
+
+AssetSizeAppBlockCSS:
+  enabled: false
+  ignore: []
+  threshold_in_bytes: 100_000
+
+AppBlockValidTags:
+  enabled: false
+  ignore: []
+
+PaginationSize:
+  enabled: true
+  ignore: []
+  min_size: 1
+  max_size: 50

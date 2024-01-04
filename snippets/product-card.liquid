@@ -1,0 +1,226 @@
+<!--
+  NOTE: This is the default product-card component.
+  You can replace it with a component from the component bank -
+  or your own code. You should also replace src/css/components/_product-card.scss
+-->
+
+{% comment %}
+
+  When you render a product card you must send a product with the render.
+  Example:
+    {% render 'product-card', product: collections['all'].products.first %}
+
+  Below is a list of variables that alter things like default text,
+  or show and hide different pieces of information. You can override
+  any of the default settings by sending your own value with the render.
+  Examples:
+    {% render 'product-card', product: collections['all'].products.first, button_text: "Add to basket" %}
+    {% render 'product-card', product: collections['all'].products.first, quickshop_enabled: false %}
+    {% render 'product-card', product: collections['all'].products.first, show_vendor: true %}
+
+{% endcomment %}
+
+{% liquid
+
+  comment # Card classes #
+  endcomment
+  assign base_class = base_class | default: 'product-card'
+  assign additional_classes = additional_classes | default: ''
+
+  comment # Card button #
+  endcomment
+  assign show_button = show_button | default: true , allow_false: true
+  assign button_text = button_text | default: 'product_card.view_product' | t 
+  assign quickshop_enabled = quickshop_enabled | default: true , allow_false: true
+  assign quickshop_button_text = quickshop_button_text | default: 'product_card.quick_shop' | t 
+
+  comment # Displays a badge when product has a compare_at_price #
+  endcomment
+  assign show_sale_tag = show_sale_tag | default: true , allow_false: true
+  assign sale_tag_text = sale_tag_text | default: 'product_card.sale' | t 
+
+  comment # Displays a badge when product was created less than 30 days ago #
+  endcomment
+  assign show_new_tag = show_new_tag | default: true , allow_false: true
+  assign new_tag_text = new_tag_text | default: 'product_card.new' | t 
+
+  comment # Sets image aspect ratio, valid values are "square", "portrait", or "landscape" #
+  endcomment
+  assign image_aspect_ratio = image_aspect_ratio | default: "square"
+
+  comment # Toggles description snippet and sets the length of the description #
+  endcomment
+  assign show_description = show_description | default: false
+  assign truncate_description = truncate_description | default: true , allow_false: true
+  assign description_words_limit = description_words_limit | default: 20
+
+  comment # Toggles on/off some product info in the card #
+  endcomment
+  assign show_title = show_title | default: true , allow_false: true
+  assign show_vendor = show_vendor | default: true , allow_false: true
+  assign show_product_type = show_product_type | default: false
+  assign show_price = show_price | default: true , allow_false: true
+  assign show_compare_at_price = show_compare_at_price | default: true , allow_false: true
+
+  comment # Some date logic to determine new products if new tag is enabled #
+  endcomment
+  if show_new_tag
+    assign created_date = product.created_at | date: "%s"
+    assign current_date = 'now' | date: "%s"
+    assign seconds_difference = current_date | minus: created_date
+    assign days_difference = seconds_difference | divided_by: 3600 | divided_by: 24
+    if days_difference < 30
+      assign is_new_product = true
+    else
+      assign is_new_product = false
+    endif
+  endif
+
+%}
+
+{% if product %}
+  <div class="{{ base_class }} {{ additional_classes }}">
+
+    {% comment %} Image container, also contains any enabled badges {% endcomment %}
+    <div class="{{ base_class }}__image-container {{ base_class }}__image-container--{{ image_aspect_ratio }}">
+
+    <div class="{{ base_class }}__rollover-images">
+      {% comment %} Alternate Image - shown on hover {% endcomment %}
+      {% if product.images.size > 1 %}
+        <div class="{{ base_class }}__alternate-image">
+          <a href="{{ product.url }}">
+            {{ product.images[1]
+              | image_url: width: product.images[1].width
+              | image_tag:
+                alt: product.images[1].alt,
+                width: 255,
+                height: 350,
+                class: 'product-card__image',
+                loading: 'lazy',
+                sizes: '(min-width: 750px) 25vw, 100vw'
+            }}
+          </a>
+        </div>
+      {% endif %}
+
+      {% comment %} Image {% endcomment %}
+      {% if product.featured_image != blank %}
+      <div class="{{ base_class }}__original-image">
+        <a href="{{ product.url }}">
+          {% if product.featured_image %}
+            {{ product.featured_image
+              | image_url: width: product.featured_image.width
+              | image_tag:
+                alt: product.featured_image.alt,
+                width: 255,
+                height: 350,
+                class: 'product-card__image',
+                loading: 'lazy',
+                sizes: '(min-width: 750px) 25vw, 100vw'
+            }}
+          {% else %}
+            <img width="255" height="350" src="https://picsum.photos/255/350" alt="" class="product-card__image" />
+          {% endif %}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+      {% comment %} Badges {% endcomment %}
+        <div class="{{ base_class }}__badges">
+
+          {% comment %} Sale tag {% endcomment %}
+          {% if show_sale_tag and product.compare_at_price and product.compare_at_price > product.price %}
+            <div class="{{ base_class }}__sale-tag">
+              <span class="{{ base_class }}__sale-tag__text">{{- sale_tag_text -}}</span>
+            </div>
+          {% endif %}
+
+          {% comment %} New tag {% endcomment %}
+          {% if show_new_tag and is_new_product %}
+            <div class="{{ base_class }}__new-tag">
+              <span class="{{ base_class }}__new-tag__text">{{- new_tag_text -}}</span>
+            </div>
+          {% endif %}
+
+        </div>
+
+    </div>
+
+    {% comment %} Product info {% endcomment %}
+    <div class="{{ base_class }}__info">
+
+      {% comment %} Title {% endcomment %}
+      {% if show_title %}
+        <h3 class="{{ base_class }}__title">
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        </h3>
+      {% endif %}
+
+      {% comment %} Vendor {% endcomment %}
+      {% if show_vendor %}
+        <div class="{{ base_class }}__vendor">
+          {{ product.vendor }}
+        </div>
+      {% endif %}
+
+      {% comment %} Product type {% endcomment %}
+      {% if show_product_type %}
+        <div class="{{ base_class }}__product-type">
+          {{ product.type }}
+        </div>
+      {% endif %}
+
+      {% comment %} Price {% endcomment %}
+      {% if show_price %}
+        <div class="{{ base_class }}__price-container">
+
+          {% comment %} Default price {% endcomment %}
+          <span class="{{ base_class }}__price">{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+
+          {% comment %} Compare at price {% endcomment %}
+          {% if show_compare_at_price and product.compare_at_price %}
+            <span class="{{ base_class }}__compare-at-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+      {% comment %} Description {% endcomment %}
+      {% if show_description %}
+        <div class="{{ base_class }}__description">
+          {% if truncate_description %}
+            {{ product.description | strip_html | strip_newlines | truncatewords: description_words_limit }}
+          {% else %}
+            {{ product.description | strip_html | strip_newlines }}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% comment %} Button {% endcomment %}
+      {% if show_button %}
+        {% if product.available %}
+          <div class="{{ base_class }}__button-container">
+            {% if quickshop_enabled %}
+              <button aria-label="Open Quickshop for {{ product.title }}" data-quickshop="{{ product.handle }}" class="{{ base_class }}__button">
+                {{- quickshop_button_text -}}
+              </button>
+            {% else %}
+              <button aria-label="Visit {{ product.title }}" href="{{ product.url }}" class="{{ base_class }}__button">
+                {{- button_text -}}
+              </button>
+            {% endif %}
+          </div>
+        {% else %}
+            <button disabled aria-label="Sold out - {{ product.title }}" class="{{ base_class }}__button">
+              {{ 'product.sold_out' | t }}
+            </button>
+        {% endif %}
+      {% endif %}
+
+    </div>
+
+  </div>
+{% else %}
+  <div class="{{ base_class }} {{ additional_classes }}"><!-- Attempting to render a product card, but no product provided. --></div>
+{% endif %}

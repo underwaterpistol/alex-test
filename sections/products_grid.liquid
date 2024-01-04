@@ -1,0 +1,32 @@
+{% comment %}
+  This section is used to fetch products for
+  collections using the section rendering API
+{% endcomment %}
+
+{% liquid
+  if collection
+    paginate collection.products by settings.products_per_page
+    assign paginate = paginate
+
+    for product in collection.products
+      render 'product-card', product: product
+    endfor
+
+    endpaginate
+  else
+    for product in collections['all'].products
+      render 'product-card', product: product
+    endfor
+  endif
+%}
+
+<div data-paginate-items="{{ paginate.items }}" hidden></div>
+
+{% render "pagination", paginate: paginate %}
+
+{% schema %}
+  {
+    "name": "Products Grid",
+    "class": "products_grid"
+  }
+{% endschema %}

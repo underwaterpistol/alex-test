@@ -1,0 +1,420 @@
+// /==================================================================
+// *
+// * This file holds some sitewide utilities.// *
+// * You may not need to make changes to the utilities, but you definitely should be familiar with them.
+// *
+// * As a general rule do not use utilities in markup, instead extend them into your classes. 
+// *   - e.g. .pdp__button { @extend .button; }
+// *   - This allows you to override the utility defaults in specific cases and keeps markup clean and maintainable.
+// *     - e.g. .pdp__button--primary { @extend .button; background-color: #fff; }
+// *
+// \==================================================================
+
+$desktop: '(min-width: #{map.get($containers, "tablet", "breakpoint-end")})'; // Usage: @media #{$desktop} { ... } Tablet portrait up
+$tablet: '(min-width: #{map.get($containers, "tablet", "breakpoint")}) and (max-width: #{map.get($containers, "tablet", "breakpoint-end")})'; // Usage: @media #{$tablet} { ... } Portrait tablet to Landscape tablet
+$mobile: '(max-width: calc(#{map.get($containers, "mobile", "breakpoint")}))'; // Usage: @media #{$mobile} { ... } Tablet portrait down
+$small-mobile: '(max-width: #{map.get($containers, "small-mobile", "breakpoint")})'; // Usage: @media #{$small-mobile} { ... } Mobile Down 
+
+body,p{
+  font-family: $openSans;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: $georgia;
+}
+
+.h1 {
+  font-size: 3.4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 45px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: $brandBody;
+  @media #{$mobile} {
+    font-size: 2.8rem;
+    line-height: 34px;    
+  }
+} // Usage .my-class { @extend .h1; }
+
+.h2 {
+  font-size: 2.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: $brandBody;
+  @media #{$mobile} {
+    font-size: 2.2rem;
+    line-height: 28px;    
+  }
+} // Usage .my-class { @extend .h2; }
+
+.h3 {
+  font-size: 2.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: $brandBody;
+  @media #{$mobile} {
+    font-size: 1.8rem;
+    line-height: 24px;    
+  }
+} // Usage .my-class { @extend .h3; }
+
+.h4 {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+  color: $brandBody;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+} // Usage .my-class { @extend .h4; }
+
+.h5 {
+  font-size: $default-font-size;
+  font-style: normal;
+  font-weight: 600;
+  color: $brandBody;
+} // Usage .my-class { @extend .h5; }
+
+.p {
+  font-size: $default-font-size;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: left;
+  color: $brandBody;
+  @media #{$mobile} {
+    font-size: 1.4rem;
+    line-height: 20px;    
+  }
+} // Usage .my-class { @extend .p; }
+
+.small {
+  @extend .p;
+  font-size: 1.4rem;
+}
+
+.a {
+  font-size: $default-font-size;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: left;
+  text-decoration: underline;
+  color: $brandPrimary;
+  @media #{$mobile} {
+    font-size: 1.4rem;
+    line-height: 20px;    
+  }
+} // Usage .my-class { @extend .a; }
+
+.eyebrow-text {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size:1.2rem;
+}
+
+.container {
+  width: map.get($containers, "default-width");
+  max-width: map.get($containers, "desktop", "max-width");
+  margin: 0 auto;
+  @media #{$mobile} {
+    max-width: map.get($containers, "mobile", "max-width");
+  }
+} // Usage .my-class { @extend .container; }
+
+.grid {
+  @for $i from 1 through 12 {
+    &-#{$i} {
+      display: grid;
+      grid-template-columns: repeat(#{$i}, 1fr);
+    }
+  }
+} // Usage .my-class { @extend .grid-12; }, .my-class { @extend .grid-5; }, etc.
+
+.desktop-colspan {
+  @for $i from 1 through 12 {
+    &-#{$i} {
+      @media #{$desktop} {
+        grid-column: auto span(#{$i});
+      }
+    }
+  }
+} // Usage .my-class { @extend .desktop-colspan-12; }, .my-class { @extend .desktop-colspan-5; }, etc.
+
+.mobile-colspan {
+  @for $i from 1 through 12 {
+    &-#{$i} {
+      @media #{$mobile} {
+        grid-column: auto span(#{$i});
+      }
+    }
+  }
+} // Usage .my-class { @extend .mobile-colspan-12; }, .my-class { @extend .mobile-colspan-5; }, etc.
+
+.image-container {
+  width: 100%;
+  height: 0;
+  position: relative;
+} // Usage .my-class { @extend .image-container; } - Add a top padding if not using a util below.
+
+.square-image-container {
+  @extend .image-container;
+  padding-top: map.get($aspect-ratios, "square");
+} // Usage .my-class { @extend .square-image-container; }
+
+.portrait-image-container {
+  @extend .image-container;
+  padding-top: map.get($aspect-ratios, "portrait");
+} // Usage .my-class { @extend .portrait-image-container; }
+
+.landscape-image-container {
+  @extend .image-container;
+  padding-top: map.get($aspect-ratios, "landscape");
+} // Usage .my-class { @extend .landscape-image-container; }
+
+.image-in-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} // Usage .my-class { @extend .image-in-container; } - This should sit inside an image container.
+
+.button {
+  font-size: $default-font-size;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  background-color: $brandBody;
+  border: 1px solid $brandBody;
+  color: $brandWhite;
+  &:hover {
+    background-color: $brandWhite;
+    border-color: $brandBody;
+    color: $brandBody;
+  }
+  &-secondary {
+    @extend .button;
+    background-color: $brandWhite;
+    color: $brandBody;
+    &:hover {
+      background-color: $brandBody;
+      color: $brandWhite;
+    }
+  }
+  &[disabled] {
+    opacity: 50%;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  &-no-styles {
+    padding: 0;
+    color:$brandBody;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+  }
+} // Usage .my-class { @extend .button; } or .my-class-secondary { @extend .button-secondary; }
+
+.checkbox {
+  display: grid;
+  place-content: center;
+  width: 25px;
+  height: 25px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: $brandWhite;
+  border: 1.5px solid $brandBody;
+  border-radius: 5px;
+  transform: translateY(-0.075em);
+  cursor: pointer;
+  &::before {
+    // The code for content is an SVG tick. Remember to change the Stroke and Fill with the colour you need.
+    // You can replace that svg using this tool: https://yoksel.github.io/url-encoder/
+    content: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 6L6 18' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M6 6L18 18' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    width: 18px;
+    height: 18px;
+    color: $brandBody;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+  }
+  &:checked {
+    background-color: $brandBody;
+    &::before {
+      transform: scale(1);
+    }
+  }
+} // Usage .my-class { @extend .checkbox; }
+
+.hide-on-desktop {
+  @media #{$desktop} {
+    display: none;
+  }
+} // Usage .my-class { @extend .hide-on-desktop; }
+
+.hide-on-mobile {
+  @media #{$mobile} {
+    display: none;
+  }
+} // Usage .my-class { @extend .hide-on-mobile; }
+
+.fade-on-hover {
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 0.65;
+  }
+} // Usage .my-class { @extend .fade-on-hover; }
+
+.loader {
+  &__container {
+    width: 98px;
+    height: 98px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+  }
+  &__inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(0.98);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+    div {
+      box-sizing: content-box;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 10px solid $brandPrimary;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: loadingAnimation 0.641025641025641s linear infinite;
+      top: 50px;
+      left: 50px
+    }
+  }
+}
+@keyframes loadingAnimation {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+// NOTE: Loader util can be used directly in markup, unless the loader has a secondary function.
+// Usage example:
+//   <div class="loader__container">
+//     <div class="loader__inner">
+//       <div></div>
+//     </div>
+//   </div>
+
+
+.breadcrumbs {
+  line-height: 24px;
+  text-align: left;
+  text-transform: uppercase;
+  &__list {
+    display: flex;
+    align-items: baseline;
+    padding: 1rem 0;
+    margin: 0;
+  }
+  &__item:not(:last-child) {
+    .breadcrumbs__link {
+      &::after {
+        content: '/';
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+  &__item:last-child {
+    & > a {
+      color: $brandBody;
+    }
+  }
+  &__link {
+    color: $brandSecondary;
+    display: flex;
+    svg {
+      margin-right: 5px;
+    }
+  }
+} // Usage .my-class { @extend .breadcrumbs; }
+
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  &--success {
+    @extend .alert;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  &--danger {
+    @extend .alert;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+} // Usage .my-class { @extend %alert--success; } or .my-class { @extend %alert--danger }
+
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+  white-space: inherit;
+}
+
+.skip-link {
+  background-color: $brandWhite;
+  padding: 1em;
+  z-index: 10000;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+*:focus{
+  outline:none !important;
+}
+*:focus:focus-visible {
+  outline: 5px solid blue !important;
+}

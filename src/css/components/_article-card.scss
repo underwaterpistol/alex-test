@@ -1,0 +1,19 @@
+.article-card{
+    text-decoration: none;
+    &__title{
+        @extend .h3;
+    }
+    &__meta{
+        @extend .h4;
+    }
+    &__cta{
+        @extend .h4;
+    }
+    &__image-container {
+        @extend .image-container;
+        @extend .square-image-container;
+    }
+    &__image {
+        @extend .image-in-container;
+    }
+}

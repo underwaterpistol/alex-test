@@ -1,0 +1,86 @@
+{
+  "product_card": {
+    "quick_shop": "Boutique rapide",
+    "view_product": "Voir le produit",
+    "new": "Nouveau",
+    "sale": "Vendre"
+  },
+  "product": {
+    "add_to_cart": "Ajouter au panier",
+    "sold_out": "Solder",
+    "customers_also_bought": "Les clients ont également acheté",
+    "notify_me": "Prévenez-moi"
+  },
+  "blogs": {
+    "article": {
+      "one_min_read": "1 minute de lecture",
+      "min_read": "{{ content }} minute de lecture"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y",
+    "jan": "Janvier",
+    "feb": "Février",
+    "mar": "Mars",
+    "apr": "Avril",
+    "may": "Mai",
+    "jun": "Jun",
+    "jul": "Juillet",
+    "aug": "Août",
+    "sep": "Septembre",
+    "oct": "Octobre",
+    "nov": "Novembre",
+    "dec": "Decembre"
+  },
+  "search": {
+    "search": "Rechercher",
+    "no_results": "Aucun résultat"
+  },
+  "forms": {
+    "first_name": "Prénom",
+    "email": "E-mail",
+    "phone": "Téléphone fixe",
+    "message": "Message",
+    "last_name": "TODO",
+    "password": "TODO",
+    "confirm_password": "TODO",
+    "new_password": "TODO",
+    "confirm_new_password": "TODO",
+    "forgot_password": "TODO",
+    "country": "TODO",
+    "province": "TODO",
+    "address1": "TODO",
+    "address2": "TODO",
+    "city": "TODO",
+    "postal_code": "TODO",
+    "login": "TODO",
+    "register": "TODO"
+  },
+  "cart": {
+    "my_cart": "Mon panier",
+    "sub_total": "Total",
+    "total": "Le total",
+    "view_cart": "Voir le panier",
+    "checkout": "Vérifier",
+    "remove": "Éliminer",
+    "product": "Produit",
+    "unit_price": "Prix ​​unitaire",
+    "quantity": "Quantité"
+  },
+  "localization": {
+    "language_label": "Langue",
+    "update_language": "Mettre à jour Langue"
+  },
+  "shopify": {
+    "notices": {
+      "cart": {
+        "less_than_minimum": "Cet élément a un minimum de %{min}.",
+        "more_than_maximum": "Cet élément a un maximum de %{max}.",
+        "not_respect_step": "Vous ne pouvez ajouter cet élément que par multiples de %{step}."
+      }
+    }
+  },
+  "customer": "TODO",
+  "collection": "TODO",
+  "menu": "TODO"
+}

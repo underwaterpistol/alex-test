@@ -1,0 +1,71 @@
+.info-columns {
+  margin: 60px 0;
+  @media #{$desktop} {
+    margin: 80px 0;
+  }
+  &__container {
+    @extend .container;
+  }
+  &__inner {
+    display: grid;
+		column-gap: 30px;
+		row-gap: 30px;
+		&--mobile-columns {
+			&-2 {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+    &--columns {
+      grid-template-columns: 1fr;
+      @media #{$desktop} {
+        &-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        &-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        &-4 {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      @media #{$tablet} {
+        &-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+	&__image {
+		&--left {
+			margin: 0 auto 0 0;
+		}
+		&--center {
+			margin: 0 auto;
+		}
+		&--right {
+			margin: 0 0 0 auto;
+		}
+	}
+	&__content {
+		margin-top: 20px;
+		&--left {
+			text-align: left;
+		}
+		&--center {
+			text-align: center;
+		}
+		&--right {
+			text-align: right;
+		}
+	}
+	&__title {
+		text-align: inherit;
+	}
+	&__text {
+		margin-top: 15px;
+	}
+	&__button {
+		@extend .button;
+		margin-top: 30px;
+	}
+}

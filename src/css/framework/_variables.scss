@@ -1,0 +1,48 @@
+// /==================================================================
+// *
+// * This file is responsible for the sitewide variables and default look and feel
+// * It uses sass maps, which you can read about here: 
+// *    - https://sass-lang.com/documentation/file.SASS_REFERENCE.html#maps
+// *
+// * This is the first file you should customize in your build.
+// * Values for this file can be found in figma.
+// *
+// \==================================================================
+
+$default-font-size: 1.6rem;
+
+/* Replace these with the fonts assigned in Figma */
+
+$openSans: "Open Sans", Helvetica, Arial, sans-serif;
+$georgia: Georgia, serif;
+
+/* Replace these with the colours assigned in Figma */
+
+$brandBody: #000;
+$brandWhite: #fff;
+$brandPrimary: var(--accent_colour);
+$brandSecondary: #666;
+
+$containers: (
+  "default-width": 96%,
+  "desktop": (
+    "max-width": 1200px
+  ),
+  "tablet": (
+    "breakpoint": 769px,
+    "breakpoint-end": 1024px,
+  ),
+  "mobile": (
+    "breakpoint": 768px,
+    "max-width": 700px
+  ),
+  "small-mobile": (
+    "breakpoint": 767px,
+  )
+); // Usage: map.get($containers, "desktop", "max-width");
+
+$aspect-ratios: (
+  "square": 100%,
+  "landscape": 65%,
+  "portrait": 135%
+); // Usage: map.get($aspect-ratios, "square"); - The value is height as a percentage of width.

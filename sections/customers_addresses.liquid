@@ -1,0 +1,141 @@
+<section class="addresses">
+
+  {% unless request.path contains "addresses" %}
+    <div class="addresses-modal__close" data-close-modal>
+      {% render "icons", icon: "close" %}
+    </div>
+  {% endunless %}
+
+  <div class="addresses__container">
+
+    <h1 class="addresses__title">{{ "customer.addresses.title" | t }}</h1>
+
+    <a href="{{ routes.account_url }}" class="addresses__back-link">{{ "customer.addresses.back_to_account" | t }}</a>
+
+    <label for="addAddress" class="addresses__add-button">{{ "customer.addresses.add" | t }}</label>
+    <input type="checkbox" id="addAddress" class="addresses__add-trigger" hidden>
+    {% render 'address-form', address: customer.new_address %}
+
+    <ul class="addresses__list">
+
+      {% if customer.default_address != blank %}
+        <li class="addresses__item">
+          <h3 class="addresses__item__title">{{ "customer.addresses.default" | t }}</h3>
+
+          <div class="addresses__item__details">
+            {{ customer.default_address | format_address }}
+          </div>
+
+          <div class="addresses__item__actions">
+            <label for="editAddress-{{ customer.default_address.id }}" class="addresses__item__edit-button">{{ "customer.addresses.edit" | t }}</label>
+            <button class="addresses__item__delete-button" data-address-url="{{ customer.default_address.url }}">Delete</button>
+          </div>
+
+          <input type="radio" name="editAddress" id="editAddress-{{ customer.default_address.id }}" class="addresses__item__edit-trigger" hidden>
+          {% render 'address-form', address: customer.default_address %} 
+        </li>
+      {% endif %}
+
+      {% for address in customer.addresses %}
+        <li class="addresses__item">
+          {% if address == customer.default_address %}
+            {% continue %}
+          {% endif %}
+          
+          <div class="addresses__item__details">
+            {{ address | format_address }}
+          </div>
+
+          <div class="addresses__item__actions">
+            <label for="editAddress-{{ address.id }}" class="addresses__item__edit-button">{{ "customer.addresses.edit" | t }}</label>
+            <button class="addresses__item__delete-button" data-address-url="{{ address.url }}">Delete</button>
+          </div>
+
+          <input type="radio" name="editAddress" id="editAddress-{{ address.id }}" class="addresses__item__edit-trigger" hidden>
+          {% render 'address-form', address: address %}
+        </li>
+  
+      {% endfor %}
+    </ul>
+
+  </div>
+</section>
+
+<script>
+  // Set up provinces selector
+  (function() {
+
+    const addressesForms = document.querySelectorAll('.addresses__form');
+    const deleteButtons = document.querySelectorAll('.addresses__item__delete-button');
+
+    addressesForms.forEach(form => {
+      const countrySelector = form.querySelector('[name="address[country]"]');
+      const proviceSelector = form.querySelector('[name="address[province]"]');
+
+      setSelectedOption(countrySelector);
+  
+      setProvinceSelector(countrySelector, proviceSelector);
+      countrySelector.addEventListener('click', () => {
+        setProvinceSelector(countrySelector, proviceSelector);
+      });
+      setSelectedOption(proviceSelector);
+    });
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        handleDelete(button.dataset.addressUrl);
+      });
+    });
+
+		function setSelectedOption(selector) {
+			for (let i = 0; i < selector.options.length; i++) {
+				if (selector.options[i].value === selector.dataset.default) {
+					selector.selectedIndex = i;
+					break;
+				}
+			}
+		}
+
+    function setProvinceSelector(countrySelector, provinceSelector) {
+      const provinces = getProvinces(countrySelector);
+			provinceSelector.options.length = 0;
+			if (provinces.length === 0) {
+				provinceSelector.parentNode.classList.add('hide');
+			} else {
+				provinceSelector.parentNode.classList.remove('hide');
+				provinces.forEach(province => {
+					const optionElement = document.createElement('option');
+					optionElement.textContent = province[0];
+					optionElement.value = province[0];
+					provinceSelector.appendChild(optionElement);
+				})
+			}
+    };
+
+    function getProvinces(select) {
+      const selectedOption = select.options[select.selectedIndex];
+      const provinces = JSON.parse(selectedOption.dataset.provinces);
+      return provinces;
+    };
+
+    function handleDelete(addressUrl) {
+      if (!addressUrl) return;
+      // Create delete form
+      const form = document.createElement('form');
+      form.setAttribute('method', 'post');
+      form.setAttribute('action', addressUrl);
+
+      // Set delete attribute
+      const hiddenField = document.createElement('input');
+      hiddenField.setAttribute('type', 'hidden');
+      hiddenField.setAttribute('name', '_method');
+      hiddenField.setAttribute('value', 'delete');
+      form.appendChild(hiddenField);
+
+      // Submit form
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+    };
+  })();
+</script>

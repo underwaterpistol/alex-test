@@ -1,0 +1,46 @@
+{% liquid
+  assign success_message = success_message | default: "Thanks for contacting us. We'll get back to you as soon as possible."
+%}
+
+{% form 'contact' %}
+
+  <div class="contact-form__messages">
+    {%- if form.posted_successfully? -%}
+      <span class="contact-form__messages__success" tabindex="-1" autofocus>{{ success_message }}</span>
+    {%- elsif form.errors -%}
+      {{ form.errors | default_errors }}
+    {%- endif -%}
+  </div>
+
+  <div class="contact-form__inner">
+    <div class="contact-form__field first-name">
+      <label for="first-name">{{ 'forms.first_name' | t }}<sup>*</sup></label>
+      <input type="text" name="contact[first_name]" id="first-name" placeholder="{{ 'forms.first_name' | t }}" required/>
+    </div>
+  
+    <div class="contact-form__field last-name">
+      <label for="last-name">{{ 'forms.last_name' | t }}<sup>*</sup></label>
+      <input type="text" name="contact[last_name]" id="last-name" placeholder="{{ 'forms.last_name' | t }}" required/>
+    </div>
+  
+    <div class="contact-form__field email">
+      <label for="email">{{ 'forms.email' | t }}<sup>*</sup></label>
+      <input type="email" name="contact[email]" id="email" placeholder="your@email.com" required/>
+    </div>
+  
+    <div class="contact-form__field phone">
+      <label for="phone">{{ 'forms.phone' | t }}</label>
+      <input type="tel" name="contact[phone]" id="phone" placeholder=""/>
+    </div>
+  
+    <div class="contact-form__field message">
+      <label for="message">{{ 'forms.message' | t }}<sup>*</sup></label>
+      <textarea name="contact[body]" id="message" rows="6" placeholder="message here..." required></textarea>
+    </div>
+
+    <div class="submit">
+      <input type="submit" value="Send" />
+    </div>
+  </div>
+
+{% endform %}

@@ -1,0 +1,181 @@
+{% comment %}  
+  NOTE: This is the default minicart template.
+  You can replace it with a template from the component bank -
+  or your own code. You should also replace src/css/unique/_minicart.scss
+{% endcomment %}
+
+<div class="minicart__drawer" data-minicart-drawer>
+
+  <div class="minicart__main">
+
+    {% comment %} Header {% endcomment %}
+    <div class="minicart__header">
+      <div class="minicart__header__container">
+        <p class="minicart__header__title">{{ 'cart.my_cart' | t }}</p>
+        <button class="minicart__header__close" aria-label="Minicart close" type="button" onclick="Minicart.closeDrawer()">
+          <svg height="12" width="12" viewPort="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2"/>
+            <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      {% if section.settings.minicart_free_shipping %}
+        {% assign totalPrice = cart.total_price | divided_by: 100 %}
+        <div class="minicart__free-shipping">
+          {%- if totalPrice >= section.settings.minicart_free_shipping_threshold -%}
+            You are eligible for free shipping!
+          {%- else -%}
+            Spend {{ section.settings.minicart_free_shipping_threshold | times: 100 | money }} for free shipping!
+          {%- endif -%}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Body {% endcomment %}
+    <div class="minicart__body">
+      <div class="minicart__items-list">
+        {% for item in cart.items %}
+          <div class="minicart__item">
+            <div class="minicart__item__image-column">
+              <div class="minicart__item__image-container">
+                {{ item.image
+                   | image_url: width: 300, height: 300
+                   | image_tag:
+                     alt: item.title,
+                     width: 300,
+                     height: 300,
+                     class: 'minicart__item__image',
+                     sizes: '(min-width: 750px) 25vw, 100vw'
+                }}
+              </div>
+            </div>
+            <div class="minicart__item__info-column">
+              <div class="minicart__item__info-container">
+                <p class="minicart__item__title">{{ item.product.title }}</p>
+                <p class="minicart__item__sku">{{ item.sku }}</p>
+                <p class="minicart__item__total-price">{{ item.original_line_price | money }}</p>
+                {% unless item.product.has_only_default_vartiant %}
+                  <div class="minicart__item__options-list">
+                    {% for option in item.options_with_values %}
+                      <p class="minicart__item__option">{{ option.name | capitalize }}: {{ option.value | capitalize }}</p>
+                    {% endfor %}
+                  </div>
+                {% endunless %}
+                <div class="minicart__item__line-container" data-no-stock-message="">
+                  <div class="minicart__item__quantity-container">
+                    <label class="visually-hidden" for="minicart__item{{ forloop.index }}__quantity">Quantity</label>
+                    <span class="minicart__item__decrement">-</span>
+                    <input id="minicart__item{{ forloop.index }}__quantity" data-id="{{ item.variant_id }}" max="{{ item.variant.inventory_quantity }}" type="text" pattern="\d*" class="minicart__item__quantity" value="{{ item.quantity }}">
+                    <span class="minicart__item__increment">+</span>
+                  </div>
+                  <div class="minicart__item__lineprice-container">
+                    <span class="minicart__item__times">x</span>
+                    <p class="minicart__item__lineprice">{{ item.original_price | money }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% comment %} Footer {% endcomment %}
+    <div class="minicart__footer">
+      <div class="minicart__footer__total-container">
+        <p class="minicart__footer__total-header">{{ 'cart.sub_total' | t }}:</p>
+        <p class="minicart__subtotal minicart__footer__total">{{ cart.total_price | money }}</p>
+      </div>
+      <a href="/cart" class="minicart__footer__cart">{{ 'cart.view_cart' | t }}</a>
+      <a href="/checkout" class="minicart__footer__checkout">{{ 'cart.checkout' | t }}</a>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="minicart__overlay" onclick="Minicart.closeDrawer()"></div>
+
+<script>
+const loadEvents = ["cartReady", "minicartReloaded"]
+
+loadEvents.forEach(event => {
+  document.addEventListener(event, function() {
+
+    // Set up minus quantity buttons
+    const decrementers = document.querySelectorAll('.minicart__item__decrement');
+    decrementers.forEach(decrementer => {
+      decrementer.addEventListener('click', event => {
+        const quantityInput = event.target.parentElement.querySelector('.minicart__item__quantity');
+        quantityInput.value--;
+        Cart.changeItemQuantity(quantityInput.dataset.id, quantityInput.value);
+        if (parseInt(quantityInput.value) == 0) {
+          const lineItem = quantityInput.closest(".minicart__item");
+          if (lineItem) lineItem.remove();
+        }
+      });
+    });
+
+    // Set up plus quantity buttons
+    const incrementers = document.querySelectorAll('.minicart__item__increment');
+    const noStockMessage = '{{ 'cart.no_stock_message' | t }}';
+    incrementers.forEach(incrementer => {
+      incrementer.addEventListener('click', event => {
+        const quantityInput = event.target.parentElement.querySelector('.minicart__item__quantity');
+        if (quantityInput.value == quantityInput.max) {
+          quantityInput.closest(".minicart__item__line-container").dataset.noStockMessage = noStockMessage;
+          setTimeout(function() {
+            quantityInput.closest(".minicart__item__line-container").dataset.noStockMessage = "";
+          }, 2000);
+          return console.error("Minicart incrementor: Cannot increment past max quantity.");
+        }
+        quantityInput.value++;
+        Cart.changeItemQuantity(quantityInput.dataset.id, quantityInput.value);
+      });
+    });
+
+    // Update quantity when user types a new quantity
+    const quantityInputs = document.querySelectorAll('.minicart__item__quantity');
+    quantityInputs.forEach(quantityInput => {
+      quantityInput.addEventListener('input', event => {
+        if (parseInt(event.target.value) && event.target.value != "") {
+          if (parseInt(event.target.value) > parseInt(event.target.max)) {
+            event.target.value = event.target.max;
+          }
+          Cart.changeItemQuantity(event.target.dataset.id, event.target.value);
+        }
+      });
+    });
+
+    // Update subtotal when cart items change
+    const subTotal = document.querySelector('.minicart__subtotal');
+    if (subTotal) {
+      document.addEventListener("cartDataUpdated", function() {
+        subTotal.innerHTML = toMoneyString(Cart.cartData.total_price);
+      })
+    }
+  })
+})
+
+
+</script>
+
+{% schema %}
+  {
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "minicart_free_shipping",
+        "label": "Enable free shipping message",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "minicart_free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "placeholder": "Minumum spend for free shipping",
+        "default": 100
+      }
+    ]
+  }
+{% endschema %}

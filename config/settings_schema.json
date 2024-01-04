@@ -1,0 +1,173 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "UWP FW2 Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Underwaterpistol LTD",
+    "theme_documentation_url": "https:\/\/www.underwaterpistol.com",
+    "theme_support_url": "https:\/\/www.underwaterpistol.com"
+  },
+  {
+    "name": "Style Settings",
+    "settings": [
+      {
+        "type": "color",
+        "id": "accent_colour",
+        "label": "Accent Colour",
+        "default": "#cccccc",
+        "info": "Select the colour for the extras on the site (arrows etc)"
+      }
+    ]
+  },
+  {
+    "name": "Swatch Settings",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_swatches",
+        "label": "Enable swatches",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Collection",
+    "settings": [
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "min": 8,
+        "max": 24,
+        "step": 2,
+        "default": 16,
+        "label": "Products per page"
+      }
+    ]
+  },
+  {
+    "name": "Rich snippets",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_product_description",
+        "default": true,
+        "label": "Show description"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_product_image",
+        "default": true,
+        "label": "Show image"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_product_sku",
+        "default": true,
+        "label": "Show SKU"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_product_brand",
+        "default": true,
+        "label": "Show brand"
+      },
+      {
+        "type": "header",
+        "content": "Articles"
+      },
+      {
+        "type": "text",
+        "id": "rs_article_author",
+        "label": "Overwrite author name"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_article_body",
+        "default": true,
+        "label": "Show body"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_article_description",
+        "default": true,
+        "label": "Show description"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_article_image",
+        "default": true,
+        "label": "Show image"
+      },
+      {
+        "type": "checkbox",
+        "id": "rs_article_publisher",
+        "default": true,
+        "label": "Show publisher"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "html",
+        "id": "facebook_icon",
+        "label": "Facebook icon svg code"
+      },
+      {
+        "type": "text",
+        "id": "facebook_url",
+        "label": "Facebook url",
+        "info": "https:\/\/www.facebook.com\/shopify"
+      },
+      {
+        "type": "html",
+        "id": "instagram_icon",
+        "label": "Instagram icon svg code"
+      },
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram url",
+        "info": "https:\/\/www.instagram.com\/shopify"
+      },
+      {
+        "type": "html",
+        "id": "pinterest_icon",
+        "label": "Pinterest icon svg code"
+      },
+      {
+        "type": "text",
+        "id": "pinterest_url",
+        "label": "Pinterest url",
+        "info": "https:\/\/www.pinterest.com\/shopify"
+      },
+      {
+        "type": "html",
+        "id": "linkedin_icon",
+        "label": "Linkedin icon svg code"
+      },
+      {
+        "type": "text",
+        "id": "linkedin_url",
+        "label": "Linkedin url",
+        "info": "https:\/\/www.linkedin.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Icon",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

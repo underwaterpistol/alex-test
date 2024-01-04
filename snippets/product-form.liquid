@@ -1,0 +1,65 @@
+{% comment %}
+    Renders a product form for atc
+
+    Usage:
+    {% render 'product-form' %}
+{% endcomment %}
+
+{% liquid assign base_class = "product"
+    assign show_notify_modal = false
+    for tag in product.tags
+        if tag == 'back-in-stock'
+            assign show_notify_modal = true
+        endif
+    endfor
+%}
+
+{%- form 'product', product, class: 'ProductForm', data-productForm: 'true' -%}
+    {% render 'product-swatches' %}
+
+    <div class="{{ base_class }}__button__wrapper">
+        <div class="{{ base_class }}__quantity">
+            <input type="button" value="-" class="minus">
+            <input type="number" step="1" min="1" readonly max="" name="quantity" value="1" title="Qty" class="item-quantity" size="4">
+            <input type="button" value="+" class="plus">
+        </div>
+
+       
+        {% comment %}
+        If product is completely sold out show either notify me modal toggle CTA or sold out CTA depending on product tags
+        If product has sold out variants then we need to toggle the notify me modal CTA when a sold out swatch is selected 
+        {% endcomment %}
+         
+        {% if product.available %}
+
+            <button type="submit" class="{{ base_class }}__atc-button" id="atcButton">
+                <span>{{ 'product.add_to_cart' | t }}</span>
+            </button>
+
+            {% if show_notify_modal %}
+                <button onclick="toggleNotifyModal()" type="button" id="alternativeButton" class="{{ base_class }}__preorder-button button button--full-width accent-color-button" style="display: none;">
+                    <span>{{ 'product.notify_me' | t }}</span>
+                </button>
+            {% endif %}
+            
+        {% else %}
+
+            {% if show_notify_modal %}
+                <button onclick="toggleNotifyModal()" type="button" id="alternativeButton" class="{{ base_class }}__preorder-button button button--full-width accent-color-button" style="display: inline-block;">
+                    <span>{{ 'product.notify_me' | t }}</span>
+                </button>
+            {% else %}
+                <button type="button" id="alternativeButton" class="{{ base_class }}__preorder-button button button--full-width" style="display:inline-block">
+                    <span>{{ 'product.sold_out' | t }}</span>
+                </button>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+
+{%- endform -%}
+
+{% if show_notify_modal %}
+    {% render 'product-notify-me', base_class: base_class %}
+{% endif %}

@@ -1,0 +1,250 @@
+<!--
+    NOTE: This is slider component that displays a carousel of slides with text and a button on a square box.
+    One image can be added along with a title, description and a call to action link per slide.
+    You can edit the styles for this component in : 
+    -- src/css/components/_hero-slider.scss
+    -- src/css/components/_hero-slide.scss
+-->
+
+{% comment %}
+  This section can be rendered on any page.
+{% endcomment %}
+
+{% liquid
+  assign base_class = "hero-slider"
+%}
+<div 
+    class="{% if section.settings.side_margins %}{{ base_class }}__wrapper{% endif %}"
+    style="
+        margin-top: {{ section.settings.margin_top }}rem; 
+        margin-bottom: {{ section.settings.margin_bottom }}rem;
+        "
+>  
+    <div class="{{ base_class }} {{ base_class }}-{{ section.id }}">
+        <div class="{{ base_class }}__swiper-button-prev {{ base_class }}__swiper-button-prev-{{ section.id }}">
+            {% render 'icons', icon: 'arrow-left' %}
+        </div>
+        <div class="{{ base_class }}__swiper-button-next {{ base_class }}__swiper-button-next-{{ section.id }}">
+            {% render 'icons', icon: 'arrow-right' %}
+        </div>
+        <div class="{{ base_class }}__swiper-pagination {{ base_class }}__swiper-pagination-{{ section.id }}">
+        </div>
+        <div class="swiper {{ base_class }}__swiper-{{ section.id }}">
+            <div class="swiper-wrapper {{ base_class }}__swiper-wrapper">
+                {% for block in section.blocks %}
+                <div class="swiper-slide {{ base_class }}__swiper-slide">
+                    {% render 'hero-slide', 
+                        desktop_image: block.settings.desktop_image, 
+                        mobile_image: block.settings.mobile_image, 
+                        show_content_box: block.settings.show_content_box,
+                        colour: block.settings.colour,
+                        text_colour: block.settings.text_colour,
+                        title: block.settings.title, 
+                        subtitle: block.settings.subtitle, 
+                        blurb: block.settings.blurb,
+                        cta_text: block.settings.cta_text,
+                        cta_link: block.settings.cta_link,
+                        button_colour: block.settings.button_colour, 
+                        button_hover_color: block.settings.button_hover_colour, 
+                        button_text_colour: block.settings.button_text_colour,
+                        button_text_hover_colour: block.settings.button_text_hover_colour,
+                        id: block.id,
+                        position: block.settings.alignment,
+                        show_overlay: block.settings.show_overlay,
+                        overlay: block.settings.overlay_bg,
+                        h1: block.settings.h1
+                        %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize Swiper -->
+<script>
+    document.addEventListener('swiperReady', () => {
+        new Swiper(".{{ base_class }}__swiper-{{ section.id }}", {
+            slidesPerView: 1,
+            navigation: {
+                nextEl: ".{{ base_class }}__swiper-button-next-{{ section.id }}",
+                prevEl: ".{{ base_class }}__swiper-button-prev-{{ section.id }}",
+            },
+            pagination: {
+            el: ".{{ base_class }}__swiper-pagination-{{ section.id }}",
+            },
+            mousewheel: true,
+            keyboard: true,
+            rewind: true,
+        })
+    })
+</script>
+
+{% schema %}
+    {
+        "name": "Hero Slider",
+        "tag": "section",
+        "class": "hero_slider",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "side_margins",
+                "label": "Side Margins",
+                "default": false
+            },
+            {
+                "type": "range",
+                "id": "margin_top",
+                "min": 0,
+                "max": 10,
+                "step": 1,
+                "unit": "rem",
+                "label": "Margin Top",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "margin_bottom",
+                "min": 0,
+                "max": 10,
+                "step": 1,
+                "unit": "rem",
+                "label": "Margin Bottom",
+                "default": 2
+            }
+        ],
+        "blocks": [
+                    {
+                        "name": "Hero Slide",
+                        "type": "hero_slide",
+                        "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "desktop_image",
+                        "label": "Desktop Image"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "mobile_image",
+                        "label": "Mobile Image"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "show_overlay",
+                        "label": "Show Overlay",
+                        "default": false
+                    },
+                    {
+                        "type": "color_background",
+                        "id": "overlay_bg",
+                        "label": "Overlay Background",
+                        "default": "linear-gradient(#ffffff, #000000)"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "show_content_box",
+                        "label": "Show Content Box?",
+                        "default": true
+                    },
+                    {
+                        "type": "select",
+                        "id": "alignment",
+                        "label": "Alignment",
+                        "options": [
+                            {
+                            "value": "left",
+                            "label": "Left"
+                            },
+                            {
+                            "value": "center",
+                            "label": "Center"
+                            },
+                            {
+                            "value": "right",
+                            "label": "Right"
+                            }
+                        ],
+                        "default": "center"
+                    },
+                    {
+                        "type": "color_background",
+                        "id": "colour",
+                        "label": "Colour",
+                        "default": "linear-gradient(#ffffff, #000000)"
+                    },
+                    {
+                        "type": "color",
+                        "id": "text_colour",
+                        "label": "Text Colour",
+                        "default": "#000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "default": "Summer Shop"
+                    },
+                    {
+                        "type": "text",
+                        "id": "subtitle",
+                        "label": "Sub Title",
+                        "default": "New In"
+                    },
+                    {
+                        "type": "inline_richtext",
+                        "id": "blurb",
+                        "label": "Blurb",
+                        "default": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing."
+                    },
+                    {
+                        "type": "text",
+                        "id": "cta_text",
+                        "label": "CTA Text",
+                        "default": "Shop Now"
+                    },
+                    {
+                        "type": "url",
+                        "id": "cta_link",
+                        "label": "CTA Link",
+                        "default": "/collections/all"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_colour",
+                        "label": "Button Colour",
+                        "default": "#000"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_hover_color",
+                        "label": "Button Hover Colour",
+                        "default": "#FFF"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_text_colour",
+                        "label": "Button Text Colour",
+                        "default": "#FFF"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_text_hover_colour",
+                        "label": "Button Text Hover Colour",
+                        "default": "#000"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "h1",
+                        "label": "Show title as H1",
+                        "default": false
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+            "name": "Hero Slider"
+            }
+        ]
+    }
+{% endschema %}

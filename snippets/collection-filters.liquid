@@ -1,0 +1,96 @@
+<div class="collection__filters">
+
+  <button class="collection__filters__toggle-button" onclick="toggleFilters()">{{ "collection.filters.filter_by" | t }}</button>
+
+  <div class="collection__filters__overlay" onclick="toggleFilters()"></div>
+
+  <div class="collection__filters__inner">
+
+    {% comment %} This header is only shown on mobile {% endcomment %}
+    <div class="collection__filters__header">
+      <h3>{{ "collection.filters.title" | t }}</h3>
+      <span class="collection__filters__close" onclick="toggleFilters()">
+        {% render 'icons', icon: 'close' %}
+      </span>
+    </div>
+
+    <form class="collection__filters__form" onsubmit="Filter.handleSubmit(event)">
+
+      <div class="collection__filters__filter-groups">
+        {% liquid        
+          for filter in collection.filters
+            render "filter-group", filter: filter
+          endfor
+        %}
+      </div>
+
+      <button
+        class="collection__filters__submit-button"
+        type="submit"
+        hidden
+      >
+        {{ "collection.filters.submit_button" | t }}
+      </button>
+    </form>
+
+    {% comment %} This header is only shown on mobile {% endcomment %}
+    <div class="collection__filters__footer">
+      <button id="viewButton" class="collection__filters__view" onclick="toggleFilters()">{{ "collection.filters.view" | t }} (<span data-products-count></span>)</button>
+      <button class="collection__filters__clear-all" onclick="Filter.clearAllFilters()">{{ "collection.filters.clear_all" | t }}</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Set up toggle filters button to show modal on mobile
+  function toggleFilters() {
+    const filters = document.querySelector('.collection__filters__inner');
+    const overlay = document.querySelector('.collection__filters__overlay');
+    filters.classList.toggle('is-open');
+    overlay.classList.toggle('is-open');
+    document.body.classList.toggle('no-scroll');
+  };
+
+  document.addEventListener('filtersCleared', () => {
+    // Remove checkboxes
+    const filtersForm = document.querySelector('.collection__filters__form');
+    filtersForm.reset();
+
+    // form.reset() do not remove the "checked" attribute, so this piece of code
+    // so this piece of code is required when you clear all filters after
+    // landing to a collection with the filters applied in the URL
+    const checkedInputs = filtersForm.querySelectorAll('input[type="checkbox"][checked]');
+    checkedInputs.forEach(input => input.removeAttribute('checked'));
+  });
+
+  // Set up filter dropdowns for desktop
+  const filterToggleButton = document.querySelectorAll('.filter-group__title');
+  filterToggleButton.forEach(button => {
+    button.addEventListener('click', event => {
+      const trigger = event.currentTarget;
+      const filterGroup = trigger.closest('.filter-group');
+      if (filterGroup.classList.contains('is-open')) {
+        filterGroup.classList.remove('is-open');
+        document.removeEventListener('click', handleClickOutside, true);
+      } else {
+        filterGroup.classList.add('is-open');
+        if (window.innerWidth > 767) {
+          document.addEventListener('click', handleClickOutside, true);
+        }
+      }
+    })
+  });
+
+  // Set up filter dropdowns closing when clicking outside
+  function handleClickOutside() {
+    const clickedElement = event.target;
+    const openedFilterDropdown = document.querySelector('.filter-group.is-open');
+    if (openedFilterDropdown !== clickedElement && !openedFilterDropdown.contains(clickedElement)) {
+      openedFilterDropdown.classList.remove('is-open');
+      document.removeEventListener('click', handleClickOutside, true);
+    }
+  };
+
+</script>

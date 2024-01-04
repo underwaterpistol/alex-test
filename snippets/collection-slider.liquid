@@ -1,0 +1,62 @@
+{% assign base_class = "collection-slider" %}
+<section  class="{{ base_class }}__wrapper" 
+    style="
+        margin-top: {{ section.settings.margin_top }}rem; 
+        margin-bottom: {{ section.settings.margin_bottom }}rem;"
+>
+    {% if section.settings.title %}
+        <div class="{{ base_class }}__title">
+            <span class="{{ base_class }}__title__text">{{ section.settings.title }}</span>
+        </div>
+    {% endif %}
+ 
+    <div class="{{ base_class }} {{ base_class }}-{{ id }}">
+            <div class="{{ base_class }}__swiper-button-prev {{ base_class }}__swiper-button-prev-{{ id }}">
+                {% render 'icons', icon: 'arrow-left' %}
+            </div>
+            <div class="{{ base_class }}__swiper-button-next {{ base_class }}__swiper-button-next-{{ id }}">
+                {% render 'icons', icon: 'arrow-right' %}
+            </div>
+        <div class="swiper {{ base_class }}__swiper-{{ id }}">
+            <div class="swiper-wrapper {{ base_class }}__swiper-wrapper">
+                {% for block in section.blocks %}
+                    <div class="swiper-slide {{ base_class }}__swiper-slide">
+                        {% render 'collection-card', block: block %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+  </section>
+
+
+<!-- Initialize Swiper -->
+<script>
+    // console.log('cta link', '{{ cta_link }}')
+    document.addEventListener('swiperReady', () => {
+        new Swiper(".{{ base_class }}__swiper-{{ id }}", {
+            slidesPerView: 1.2,
+            spaceBetween: 15,
+            breakpoints: {
+                768: {
+                slidesPerView: 2,
+                spaceBetween: 15,
+                },
+                1068: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+                },
+                1268: {
+                slidesPerView: 4,
+                spaceBetween: 15,
+                }
+            },
+            navigation: {
+                nextEl: ".{{ base_class }}__swiper-button-next-{{ id }}",
+                prevEl: ".{{ base_class }}__swiper-button-prev-{{ id }}",
+            },
+            rewind: true,
+        })
+    })
+</script>

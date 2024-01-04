@@ -1,0 +1,42 @@
+{% comment %}
+    Renders a list of product's swatches (m,l,xl etc)
+
+    Usage:
+    {% render 'product_swatches' %}
+{% endcomment %}
+
+<div class="swatch-wrapper"></div>
+
+<script>
+  (function () {
+    if (window.SwatchGroup) {
+      initSwatches();
+    } else {
+      document.addEventListener("swatchesReady", initSwatches);
+    }
+
+    function initSwatches() {
+      new SwatchGroup({
+        wrapper: ".swatch-wrapper",
+        productData: {{ product | json }},
+        swatchData: {{ product.metafields.swatches | json }},
+        allowUnavailableSelections: true
+      }).selectSwatchesFromUrl();
+    }
+  })();
+
+  document.addEventListener("variantChanged", function(event) {
+    const {variant, available, wrapper} = event.detail;
+    const atcButton = document.querySelector("#atcButton");
+    const alternativeButton = document.querySelector("#alternativeButton");
+
+    atcButton.style.display = available ? "inline-block" : "none";
+    alternativeButton.style.display = available ? "none" : "inline-block";
+    //loop through each current swatch element and add option selected
+    const currentSwatchLabels = wrapper.querySelectorAll('.swatch-group__current');
+    currentSwatchLabels.forEach(function (item, index) {
+      const optionIndex = index+1;
+      item.innerHTML = event.detail.variantSelectedOptions["option"+optionIndex]
+    });
+  })
+</script>

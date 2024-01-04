@@ -1,0 +1,246 @@
+.login,
+.recover,
+.register,
+.reset-password,
+.addresses,
+.order,
+.activate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 65px 0;
+  @media #{$mobile} {
+    margin: 45px 0;
+  }
+  &__container {
+    @extend .container;
+    max-width: 400px;
+  }
+  &__title {
+    @extend .h2;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  &__recover-success {
+    @extend .alert--success;
+  }
+  &__form {
+    width: 100%;
+    & > * + * {
+      margin-top: 20px;
+    }
+    &__success {
+      @extend .alert--success;
+    }
+    &__errors {
+      @extend .alert--danger;
+      ul {
+        list-style: initial;
+      }
+    }
+    &__input-wrapper {
+			&.hide {
+				display: none;
+			}
+      input:not([type='checkbox']):not([type='radio']),
+      select {
+        width: 100%;
+        padding: 5px;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      &--two-columns {
+        display: flex;
+        align-items: center;
+        @media #{$desktop} {
+          & > * + * {
+            margin-left: 15px;
+          }
+        }
+        @media #{$mobile} {
+          display: block;
+        }
+      }
+      &--checkbox {
+        text-align: left;
+        label {
+          display: initial;
+          margin: 0;
+        }
+      }
+    }
+    &__submit-button {
+      @extend .button;
+      width: 100%;
+    }
+  }
+}
+
+// Logic for handling views (login or recover password)
+.recover {
+  // This is a workaround to add some offset between the recover form and the fixed header
+  padding-top: 180px;
+  margin-top: -125px;
+}
+#recover {
+  display: none;
+  &:target {
+    display: flex;
+    & ~ #login {
+      display: none;
+    }
+  }
+}
+
+.account {
+  padding: 4rem 0;
+  min-height: 60vh;
+  
+  &__container {
+    @extend .container;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+    @media #{$mobile} {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__orders {
+    padding-right: 1rem;
+    @media #{$mobile} {
+      padding-right: 0;
+      grid-row: 2/3;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 1rem;
+  }
+
+  &__orders-table {
+    width: 100%;
+    th {
+      padding-top: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid white;
+    }
+    td {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid white;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  &__addresses {
+    width: 300px;
+    max-width: 100%;
+    background-color: #efefef;
+    padding: 1rem;
+    @media #{$mobile} {
+      grid-row: 1/2;
+    }
+  }
+
+  &__default-address {
+    margin-bottom: 0.75rem;
+  }
+
+  &__edit-address {
+    @extend .a;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.customer-account{
+  &__title{
+    margin-bottom:20px;
+  }
+  &__logout{
+    margin-bottom:20px;
+    display:inline-block;
+  }
+}
+
+// Addresses page
+.addresses {
+  &__container {
+    text-align: center;
+  }
+  &__back-link {
+    @extend .a;
+    display: block;
+    text-align: center
+  }
+  &__add-button {
+    @extend .button;
+    margin-top: 20px;
+  }
+  &__add-trigger {
+    &:checked ~ .addresses__form {
+      display: block;
+    }
+  }
+  &__list {
+    padding: 0;
+    & > * + * {
+      margin-top: 20px;
+    }
+  }
+  &__item {
+    &__title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    &__details {
+      p {
+        text-align: center
+      }
+    }
+    &__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      & > * + * {
+        margin-left: 10px;
+      }
+    }
+    &__edit-button,
+    &__delete-button {
+      @extend .button-secondary;
+      width: 100%;
+    }
+    &__edit-trigger {
+      &:checked ~ .addresses__form {
+        display: block;
+      }
+    }
+  }
+  &__form {
+    display: none;
+  }
+}

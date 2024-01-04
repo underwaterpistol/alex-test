@@ -1,0 +1,55 @@
+<div class="contact-main">
+  <div class="contact-main__container">
+    <div class="contact-main__inner">
+
+      <div class="contact-main__heading">
+
+        {% if section.settings.subtitle != blank %}
+          <span class="contact-main__subtitle">{{ section.settings.subtitle }}</span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h1 class="contact-main__title">{{ section.settings.title }}</h1>
+        {% endif %}
+
+        {% if section.settings.intro_text != blank %}
+          {{ section.settings.intro_text }}
+        {% endif %}
+
+      </div>
+
+      <div class="contact-main__form">
+        {% render 'contact-form', success_message: section.settings.success_message %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Intro text"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Form success message"
+    }
+  ]
+}
+{% endschema %}

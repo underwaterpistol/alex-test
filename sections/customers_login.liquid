@@ -1,0 +1,68 @@
+<section class="recover" id="recover">
+  <div class="recover__container">
+    <h1 class="recover__title">{{ "customer.recover.title" | t }}</h1>
+
+    {% form "recover_customer_password", class: "recover__form" %}
+      {% assign recover_success = form.posted_successfully? %}
+
+      {% if form.errors %}
+        <div class="login__form__errors">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+
+      <div class="recover__form__input-wrapper">
+        <label for="email">{{ "forms.email" | t }}</label>
+        <input type="email" name="email">
+      </div>
+
+      <button class="recover__form__submit-button" type="submit">{{ "customer.recover.submit_button" | t }}</button>
+    {% endform %}
+  </div>
+</section>
+
+<section class="login" id="login">
+  <div class="login__container">
+
+    <h1 class="login__title">{{ "customer.login.title" | t }}</h1>
+
+    {% if recover_success %}
+      <div class="login__recover-success">
+        <p class="login__recover-success__message">{{ "customer.login.recover_success" | t }}</p>
+      </div>
+    {% endif %}
+
+    {% form "customer_login", class: "login__form" %}
+
+      
+    {% if form.errors %}
+      <div class="login__form__errors">
+        {{ form.errors | default_errors }}
+      </div>
+    {% endif %}
+      
+      <div class="login__form__input-wrapper">
+        <label for="email">{{ "forms.email" | t }}</label>
+        <input type="email" name="customer[email]">
+      </div>
+    
+      <div class="login__form__input-wrapper">
+        <label for="password">{{ "forms.password" | t }} <small><a href="#recover" class="login__form__forgot-password">{{ "forms.forgot_password" | t }}</a></small></label>
+        <input type="password" name="customer[password]">
+      </div>
+        
+      <p class="login__form__signup">{{ "customer.login.register_message_html" | t }}</p>
+
+      <button class="login__form__submit-button" type="submit">{{ "customer.login.submit_button" | t }}</button>
+    {% endform %}
+  </div>
+</section>
+
+<script>
+  (function () {
+    const forgotPasswordLink = document.querySelector('.login__form__forgot-password');
+    forgotPasswordLink.addEventListener('click', (event) => {
+      window.scrollTo(0, 0);
+    })
+  })();
+</script>

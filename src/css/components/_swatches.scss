@@ -1,0 +1,54 @@
+.swatch-group {
+  display: block;
+  margin-bottom: 1rem;
+  &__label {
+    display: block;
+    @extend .h5;
+  }
+  &__swatches {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__swatch {
+    border: 1px solid $brandPrimary;
+    display: block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    @extend .fade-on-hover;
+    &.unavailable {
+      opacity: 0.25;
+      &.disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+    &--text {
+      padding: 0.375rem 0.75rem;
+      &.selected {
+        background-color: $brandPrimary;
+        border-color: $brandPrimary;
+        color: $brandWhite;
+      }
+    }
+    &--colour {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      &.selected {
+        opacity: 0.45;
+      }
+    }
+    &--image {
+      padding: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      &.selected {
+        opacity: 0.45;
+      }
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

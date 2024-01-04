@@ -1,0 +1,167 @@
+<div class="cart-page">
+    <div class="cart-page__container">
+        <h2 class="cart-page__subtitle">{{ 'cart.my_cart' | t }}</h2>
+      {% comment %} main content {% endcomment %}
+      <form action="/checkout" method="post" class="cart-page__main">
+
+        {% comment %} Order history {% endcomment %}
+        <div class="cart-page__items">
+            <div class="cart-page__header hide-on-mobile">
+                <div class="cart-page__item__image-column">
+                    <p class="cart-page__item__line-title" style="text-align:left">{{ 'cart.product' | t }}</p>
+                </div>
+                <div class="cart-page__item__info-column">
+                    <div class="cart-page__item__info-container">
+                        <div class="cart-page__item__info">
+                        </div>
+                        <div class="cart-page__item__line-container">
+                            <p class="cart-page__item__line-title" style="text-align:left">{{ 'cart.unit_price' | t }}</p>
+                            <p class="cart-page__item__line-title">{{ 'cart.quantity' | t }}</p>
+                            <p class="cart-page__item__line-title" style="text-align:right">{{ 'cart.total' | t }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          {% for item in cart.items %}
+            <div class="cart-page__item">
+                <div class="cart-page__item__image-column">
+                    <div class="cart-page__item__image-container">
+                        <a href="{{ item.product.url }}">
+                            <img src="{{ item.image.src | image_url }}" alt="{{ item.image.alt }}" class="cart-page__item__image" width="300" height="300" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+                <div class="cart-page__item__info-column">
+                    <div class="cart-page__item__info-container">
+                        <div class="cart-page__item__info">
+                            <a href="{{ item.product.url }}" style="text-decoration: none;">
+                                <p class="cart-page__item__title">{{ item.product.title }}</p>
+                            </a>
+                            <p class="cart-page__item__total-price hide-on-desktop">{{ item.final_price | money }}</p>
+                            {% unless item.product.has_only_default_vartiant %}
+                            <div class="cart-page__item__options-list">
+                                {% for option in item.options_with_values %}
+                                <p class="cart-page__item__option">{{ option.name | capitalize }}: {{ option.value | capitalize }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endunless %}
+                            <span data-id="{{ item.variant_id }}" class="cart-page__item__remove hide-on-mobile">{{ 'cart.remove' | t }}</span>
+                        </div>
+                        <div class="cart-page__item__line-container">
+                            <p class="cart-page__item__total-price hide-on-mobile">{{ item.final_price | money }}</p>
+                            <div class="cart-page__item__quantity-container">
+                                <span class="cart-page__item__decrement">-</span>
+                                <input data-id="{{ item.variant_id }}" max="{{ item.variant.inventory_quantity }}" type="text" pattern="\d*" class="cart-page__item__quantity" value="{{ item.quantity }}">
+                                <span class="cart-page__item__increment">+</span>
+                            </div>
+                            <span data-id="{{ item.variant_id }}" class="cart-page__item__remove hide-on-desktop">Remove</span>
+                            <p class="cart-page__item__total-price hide-on-mobile">{{ item.final_line_price | money }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+        {% comment %} Addresses {% endcomment %}
+        <div class="cart-page__meta">
+            <div class="cart-page__meta__totals">
+                <div class="minicart__footer__total-container">
+                    <p class="minicart__footer__total-header">{{ 'cart.sub_total' | t }}:</p>
+                    <p class="minicart__subtotal minicart__footer__total cart-page__total-price">{{ cart.total_price | money }}</p>
+                    <p class="minicart__subtotal minicart__footer__total-items cart-page__item-quantity">({{ cart.item_count }} items)</p>
+                </div>
+                <button type="submit" class="minicart__footer__checkout" style="width: 100%">{{ 'cart.checkout' | t }}</button>
+                <div class="footer__sub-icons">
+                    {% render: 'payment-icons' %}
+                </div>
+            </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function handleAddToCart(variantID) {
+        Cart.addItem(variantID);
+        location.reload();
+
+    }
+  document.addEventListener("cartReady", function() {
+    const decrementers = document.querySelectorAll(".cart-page__item__decrement");
+    const incrementers = document.querySelectorAll(".cart-page__item__increment");
+    //set up remove buttons
+    const removes = document.querySelectorAll('.cart-page__item__remove');
+    removes.forEach(remove => {
+      remove.addEventListener('click', event => {
+        console.log('remove clicked')
+        console.log(event.target)
+        const removeId = event.target;
+        console.log()
+        Cart.changeItemQuantity(removeId.dataset.id, "0");
+        const lineItem = removeId.closest(".cart-page__item");
+          if (lineItem) lineItem.remove();
+      });
+    });
+
+    // Setup decrementors
+    decrementers.forEach(decrementer => {
+      decrementer.addEventListener("click", event => {
+        const quantityInput = event.target.parentElement.querySelector(".cart-page__item__quantity");
+        quantityInput.value--;
+        Cart.changeItemQuantity(quantityInput.dataset.id, quantityInput.value);
+        if (parseInt(quantityInput.value) == 0) {
+          const lineItem = quantityInput.closest(".cart-page__item");
+          if (lineItem) lineItem.remove();
+        }
+      })
+    })
+
+    // Setup incrementers
+    incrementers.forEach(incrementer => {
+      incrementer.addEventListener("click", event => {
+        const quantityInput = event.target.parentElement.querySelector(".cart-page__item__quantity");
+        if (quantityInput.value == quantityInput.max) return console.error("Max quantity reached");
+        quantityInput.value++;
+        Cart.changeItemQuantity(quantityInput.dataset.id, quantityInput.value);
+      })
+    })
+
+      // Update quantity when user types a new quantity
+      const quantityInputs = document.querySelectorAll('.cart-page__item__quantity');
+      quantityInputs.forEach(quantityInput => {
+        quantityInput.addEventListener('input', event => {
+          if (parseInt(event.target.value) && event.target.value != "") {
+            if (parseInt(event.target.value) > parseInt(event.target.max)) {
+              event.target.value = event.target.max;
+            }
+            Cart.changeItemQuantity(event.target.dataset.id, event.target.value);
+          }
+        });
+      });
+
+      // Update subtotal when cart items change
+      const subTotal = document.querySelector('.cart-page__total-price');
+      if (subTotal) {
+        document.addEventListener("cartDataUpdated", function() {
+          subTotal.innerHTML = toMoneyString(Cart.cartData.total_price);
+        })
+      }
+
+      // Update cart item quantity when changed
+      const cartItemQuantity = document.querySelector('.cart-page__item-quantity');
+      if (cartItemQuantity) {
+        document.addEventListener("cartDataUpdated", function() {
+           cartItemQuantity.innerHTML = `${Cart.cartData.item_count} items`;
+        })
+      }
+
+  })
+  
+  </script>

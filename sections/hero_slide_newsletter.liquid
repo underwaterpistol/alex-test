@@ -1,0 +1,178 @@
+<!--
+    NOTE: This is a banner component that displays a slide with text and a button on a square box.
+    One image can be added along with a title, description and a call to action link.
+    You can edit the styles for this component in : 
+    -- src/css/components/_hero-slide.scss
+-->
+
+<div 
+class="{% if section.settings.side_margins %}hero-slide__wrapper{% endif %}"
+style="
+    margin-top: {{ section.settings.margin_top }}rem; 
+    margin-bottom: {{ section.settings.margin_bottom }}rem;
+    "
+>  
+
+{% liquid  
+        assign title = section.settings.title %}
+        {% capture blurb %}
+            {% render "newsletter-form", klaviyo_list_id: section.settings.klaviyo_list_id, form_text: section.settings.form_text, form_button_text: section.settings.form_button_text %}
+        {% endcapture %}
+{% liquid 
+        assign desktop_hero_image = section.settings.desktop_image
+        assign mobile_hero_image = section.settings.mobile_image
+%}
+
+{% render 'hero-slide', 
+    desktop_image: desktop_hero_image, 
+    mobile_image: mobile_hero_image,
+    show_content_box: section.settings.show_content_box,
+    colour: section.settings.colour,
+    text_colour: section.settings.text_colour,
+    title: title,
+    subtitle: section.settings.subtitle,
+    blurb: blurb,
+    id: section.id,
+    position: section.settings.alignment,
+    show_overlay: section.settings.show_overlay,
+    overlay: section.settings.overlay_bg,
+    h1: false,
+    letterbox: true,
+    loading: 'lazy',
+    newsletter: true
+%}
+</div>
+
+{% schema %}
+{
+    "name": "Hero Slide Newsletter",
+    "tag": "section",
+    "class": "hero_slide_banner",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "side_margins",
+            "label": "Side Margins",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Top",
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "unit": "rem",
+            "label": "Margin Bottom",
+            "default": 2
+        },
+        {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_overlay",
+            "label": "Show Overlay",
+            "default": false
+        },
+        {
+            "type": "color_background",
+            "id": "overlay_bg",
+            "label": "Overlay Background",
+            "default": "linear-gradient(#ffffff, #000000)"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_content_box",
+            "label": "Show Content Box?",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alignment",
+            "options": [
+                {
+                "value": "left",
+                "label": "Left"
+                },
+                {
+                "value": "center",
+                "label": "Center"
+                },
+                {
+                "value": "right",
+                "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "color_background",
+            "id": "colour",
+            "label": "Colour",
+            "default": "linear-gradient(#ffffff, #000000)"
+        },
+        {
+            "type": "color",
+            "id": "text_colour",
+            "label": "Text Colour",
+            "default": "#000"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Sign up to recieve HUGE discounts"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Sub Title",
+            "default": "Our Newsletter"
+        },
+        {
+            "type": "header",
+            "content": "Form settings"
+        },
+        {
+            "type": "text",
+            "id": "klaviyo_list_id",
+            "label": "Klaviyo list ID"
+        },
+        {
+            "type": "text",
+            "id": "form_text",
+            "label": "Form text",
+            "default": "Be the first to hear about new products, competitions and VIP discounts"
+        },
+        {
+            "type": "text",
+            "id": "form_button_text",
+            "label": "Form button text",
+            "default": "Subscribe"
+        }
+    ],
+    "presets": [
+        {
+        "name": "Hero Slide Newsletter"
+        }
+    ]
+}
+{% endschema %}

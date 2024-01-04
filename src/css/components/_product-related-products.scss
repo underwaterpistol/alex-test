@@ -1,0 +1,23 @@
+.related-products{
+    margin-top:4rem;
+    padding:4rem 0;
+    &__wrapper{
+        @extend .container;
+    }
+    &__navigation {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        top: 44%;
+        &__container {
+            @extend .container;
+        }
+        &__button {
+            display: inline-block;
+            cursor: pointer;
+            &--next {
+            float: right;
+            }
+        }
+    }
+}

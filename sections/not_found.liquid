@@ -1,0 +1,30 @@
+{% liquid
+  assign base_class = 'not-found'
+%}
+
+<div class="{{ base_class }}__container">
+  <h1 class="{{ base_class }}__title">404</h1>
+  <p class="{{ base_class }}__message">{{ section.settings.message }}</p>
+  <a href="{{ shop.url }}" class="{{ base_class }}__button">{{ section.settings.button_text }}</a>
+</div>
+
+{% schema %}
+  {
+    "name": "404",
+    "class": "not-found",
+    "settings": [
+      {
+        "type": "text",
+        "id": "message",
+        "label": "Message",
+        "default": "The page you are looking for could not be found."
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button",
+        "default": "Continue Shopping"
+      }
+    ]
+  }
+{% endschema %}

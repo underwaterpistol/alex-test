@@ -1,0 +1,3 @@
+# Templates
+
+Templates are the in-between files for layouts and sections. A template sets the determined layout, includes any sections and their settings, and is relevant to a specific view type, for example `product.liquid` is the template for product pages - you can have multiple templates for the same object by adding a second dot notated parameter, for example `page.primary.liquid` and `page.secondary.liquid` will create primary and secondary page templates respectively. 

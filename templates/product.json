@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "settings": {
+        "variant_change_behavior": "replace-slides"
+      }
+    },
+    "2966478e-f939-4859-8502-67bffc011437": {
+      "type": "product_faqs",
+      "settings": {
+        "title": "FREQUENTLY ASKED QUESTIONS",
+        "content_bg": "#F2F2F2",
+        "cta_url": "shopify:\/\/pages\/contact",
+        "cta_text": "Contact",
+        "padding_top": 85,
+        "padding_bottom": 85,
+        "padding_top_mobile": 85,
+        "padding_bottom_mobile": 85
+      }
+    },
+    "related_products": {
+      "type": "product_related_products",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "2966478e-f939-4859-8502-67bffc011437",
+    "related_products"
+  ]
+}

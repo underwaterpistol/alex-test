@@ -1,0 +1,18 @@
+{% comment %}
+    Renders a list of product's title info (subtitle, title, review stars, price)
+
+    Accepts:
+    - product: {Object} Product Liquid object
+    - base_class: {String} Adds a class to the element
+
+    Usage:
+    {% render 'product_info_title', product: product, base_class:base_class %}
+{% endcomment %}
+<div class="{{ base_class }}__title__wrapper">
+    <h1 class="{{ base_class }}__title">{{ product.title }}</h1>
+    {% render 'price', product: product, base_class: base_class %}
+</div>
+<span class="h4__sub-title">{{ product.vendor }}</h4>
+
+<div class="{{ base_class }}__review-stars">
+</div>

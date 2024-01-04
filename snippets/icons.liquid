@@ -1,0 +1,93 @@
+{% liquid
+  assign class = class
+  assign color = color | default: "currentColor"
+%}
+
+{% if icon == 'account' %}
+    <svg class="{{ class }}" width="16" height="18" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8.48908" cy="4.86805" r="3.93958" stroke="black" stroke-width="1.5"/>
+        <path d="M1.66786 17.8215C1.62273 15.6549 2.85931 11.3215 8.16669 11.3215" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14.6655 17.8215C14.7106 15.6549 13.4741 11.3215 8.16669 11.3215" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+{% elsif icon == 'heart' %}
+    <svg class="{{ class }}" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.85134 1.41463C6.46528 0.297917 8.41622 1.68114 9.22351 2.68952C9.31082 2.79858 9.4817 2.80066 9.57171 2.6938C10.5492 1.53326 12.9225 0.0339587 15.9448 1.91691C16.9525 2.58664 18.9681 4.93068 17.4564 8.94904C16.9525 10.1211 15.2256 13.2031 12.9214 14.9766C11.7783 15.8564 9.90493 17.0783 9.43128 16.9961C9.406 16.9917 9.38146 16.9864 9.35616 16.9822C8.85359 16.8988 6.44299 15.3714 5.36302 14.4743C2.94433 12.4651 1.66781 9.61877 1.33188 8.44675C0.122536 4.02655 2.50763 1.91692 3.85134 1.41463Z" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+{% elsif icon == 'filled-heart' %}
+    <svg class="{{ class }}" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.85134 1.41463C6.46528 0.297917 8.41622 1.68114 9.22351 2.68952C9.31082 2.79858 9.4817 2.80066 9.57171 2.6938C10.5492 1.53326 12.9225 0.0339587 15.9448 1.91691C16.9525 2.58664 18.9681 4.93068 17.4564 8.94904C16.9525 10.1211 15.2256 13.2031 12.9214 14.9766C11.7783 15.8564 9.90493 17.0783 9.43128 16.9961C9.406 16.9917 9.38146 16.9864 9.35616 16.9822C8.85359 16.8988 6.44299 15.3714 5.36302 14.4743C2.94433 12.4651 1.66781 9.61877 1.33188 8.44675C0.122536 4.02655 2.50763 1.91692 3.85134 1.41463Z" fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+
+
+{% elsif icon == 'cart' %}
+    <svg class="{{ class }}" width="17" height="18" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.25 7.16667V5.27778C12.25 4.27585 11.8549 3.31496 11.1517 2.60649C10.4484 1.89801 9.49456 1.5 8.5 1.5C7.50544 1.5 6.55161 1.89801 5.84835 2.60649C5.14509 3.31496 4.75 4.27585 4.75 5.27778V7.16667H12.25ZM1.9375 7.16667H15.0625L16 18.5H1L1.9375 7.16667Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+{% elsif icon == 'close' %}
+    <svg class="{{ class }}" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1.25192" y1="12.6464" x2="13.2519" y2="0.646454" stroke="currentColor"/>
+        <line x1="1.35355" y1="0.646447" x2="13.3535" y2="12.6464" stroke="currentColor"/>
+    </svg>
+
+{% elsif icon == 'minus' %}
+    <svg class="{{ class }}" width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="10" height="1.5" fill="currentColor"/>
+    </svg>
+
+{% elsif icon == 'plus' %}
+    <svg class="{{ class }}" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.82017 5.8205L10.3477 5.8205L10.3477 4.52702L5.82017 4.52702L5.82017 -1.97903e-07L4.52668 -2.54443e-07L4.52668 4.52702L-0.000214775 4.52702L-0.000214831 5.8205L4.52668 5.8205L4.52668 10.3479L5.82017 10.3479L5.82017 5.8205Z" fill="currentColor"/>
+    </svg>
+
+
+{% elsif icon == 'arrow-left' %}
+    <svg class="{{ class }}" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" fill="white"/>
+        <path d="M7.64645 15.6464C7.45119 15.8417 7.45119 16.1583 7.64645 16.3536L10.8284 19.5355C11.0237 19.7308 11.3403 19.7308 11.5355 19.5355C11.7308 19.3403 11.7308 19.0237 11.5355 18.8284L8.70711 16L11.5355 13.1716C11.7308 12.9763 11.7308 12.6597 11.5355 12.4645C11.3403 12.2692 11.0237 12.2692 10.8284 12.4645L7.64645 15.6464ZM24 15.5L8 15.5L8 16.5L24 16.5L24 15.5Z" fill="black"/>
+    </svg>
+
+
+{% elsif icon == 'arrow-right' %}
+    <svg class="{{ class }}" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" fill="white"/>
+        <path d="M24.3536 16.3536C24.5488 16.1583 24.5488 15.8417 24.3536 15.6464L21.1716 12.4645C20.9763 12.2692 20.6597 12.2692 20.4645 12.4645C20.2692 12.6597 20.2692 12.9763 20.4645 13.1716L23.2929 16L20.4645 18.8284C20.2692 19.0237 20.2692 19.3403 20.4645 19.5355C20.6597 19.7308 20.9763 19.7308 21.1716 19.5355L24.3536 16.3536ZM8 16.5L24 16.5L24 15.5L8 15.5L8 16.5Z" fill="black"/>
+    </svg>
+
+{% elsif icon == 'chevron-left' %}
+    <svg class="{{ class }}" width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1L1 6L7 11" stroke="black" stroke-linecap="round"/>
+    </svg>
+
+{% elsif icon == 'chevron-right' %}
+    <svg class="{{ class }}" width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 11L7 6L1 0.999999" stroke="black" stroke-linecap="round"/>
+    </svg>
+
+{% elsif icon == 'chevron-down' %}
+    <svg class="{{ class }}" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L6 6L11 1" stroke="{{ color }}" stroke-linecap="round"/>
+    </svg>
+
+
+{% elsif icon == 'swiper-arrow-prev' %}
+    <svg class="{{ class }}" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="19.5312" height="20" fill="white"/>
+        <path d="M4.52926 9.64645C4.334 9.84171 4.334 10.1583 4.52926 10.3536L7.71124 13.5355C7.9065 13.7308 8.22308 13.7308 8.41835 13.5355C8.61361 13.3403 8.61361 13.0237 8.41835 12.8284L5.58992 10L8.41835 7.17157C8.61361 6.97631 8.61361 6.65973 8.41835 6.46447C8.22308 6.2692 7.9065 6.2692 7.71124 6.46447L4.52926 9.64645ZM14.6484 9.5L4.88281 9.5L4.88281 10.5L14.6484 10.5L14.6484 9.5Z" fill="black"/>
+    </svg>
+
+{% elsif icon == 'swiper-arrow-next' %}
+    <svg class="{{ class }}" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="19.5312" height="20" transform="rotate(-180 20 20)" fill="white"/>
+        <path d="M15.4707 10.3536C15.666 10.1583 15.666 9.84171 15.4707 9.64645L12.2888 6.46447C12.0935 6.26921 11.7769 6.26921 11.5817 6.46447C11.3864 6.65973 11.3864 6.97631 11.5817 7.17157L14.4101 10L11.5817 12.8284C11.3864 13.0237 11.3864 13.3403 11.5817 13.5355C11.7769 13.7308 12.0935 13.7308 12.2888 13.5355L15.4707 10.3536ZM5.35156 10.5L15.1172 10.5L15.1172 9.5L5.35156 9.5L5.35156 10.5Z" fill="black"/>
+    </svg>
+
+{% elsif icon == 'search' %}
+    <svg class="{{ class }}" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.9377 15.9243L12.3215 11.3081C13.1931 10.2167 13.7167 8.83561 13.7167 7.33336C13.7167 3.81355 10.8531 0.95 7.33333 0.95C3.81352 0.95 0.95 3.81355 0.95 7.33336C0.95 10.8532 3.81355 13.7167 7.33336 13.7167C8.83561 13.7167 10.2167 13.1931 11.3081 12.3216L15.9243 16.9377L15.9243 16.9377C16.0741 17.0874 16.3167 17.0874 16.4664 16.9377L16.4665 16.9377L16.9377 16.4664L16.9024 16.4311L16.9377 16.4664C17.0874 16.3167 17.0874 16.074 16.9377 15.9243ZM7.33336 12.2834C4.60381 12.2834 2.38335 10.0629 2.38335 7.33336C2.38335 4.60381 4.60381 2.38335 7.33336 2.38335C10.0629 2.38335 12.2834 4.60381 12.2834 7.33336C12.2834 10.0629 10.0629 12.2834 7.33336 12.2834Z" fill="black" stroke="black" stroke-width="0.1"/>
+    </svg>
+
+{% endif %}

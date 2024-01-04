@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "e4a26359-058b-4280-bb12-9d3286143206": {
+      "type": "hero_slide_banner",
+      "settings": {
+        "side_margins": false,
+        "margin_top": 0,
+        "margin_bottom": 4,
+        "desktop_image": "",
+        "show_overlay": false,
+        "overlay_bg": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 1) 100%)",
+        "show_content_box": true,
+        "alignment": "center",
+        "colour": "",
+        "text_colour": "#000",
+        "title": "Summer Shop",
+        "subtitle": "New In",
+        "blurb": "Eros, sed ac libero sed ac tristique ultrices pellentesque adipiscing.",
+        "cta_text": "Shop Now",
+        "cta_link": "shopify:\/\/collections\/all",
+        "button_colour": "#000",
+        "button_hover_color": "#FFF",
+        "button_text_colour": "#FFF",
+        "button_text_hover_colour": "#000",
+        "h1": false
+      }
+    },
+    "main": {
+      "type": "contact",
+      "settings": {
+        "subtitle": "",
+        "title": "",
+        "intro_text": "",
+        "success_message": ""
+      }
+    }
+  },
+  "order": [
+    "e4a26359-058b-4280-bb12-9d3286143206",
+    "main"
+  ]
+}

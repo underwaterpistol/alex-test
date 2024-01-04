@@ -1,0 +1,32 @@
+.blog-slider{
+    &__header{
+        @extend .container; 
+    }
+    &__title{
+        @extend .h2;
+    }
+    &__footer{
+        @extend .hide-on-desktop;
+        @extend .container;
+    }
+    &__cta{
+        @extend .button;
+    }
+    &__swiper-button-prev, &__swiper-button-next{
+        position: absolute;
+        top: 40%;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 14px;
+    }
+    &__swiper-button-next{
+        right: 0;
+    }
+    &__swiper-slide.hide-on-mobile {
+        @media #{$mobile}{
+            display: none;
+        }
+    }
+}

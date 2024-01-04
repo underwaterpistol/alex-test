@@ -1,0 +1,42 @@
+
+{% liquid
+assign base_class = "related-products" 
+%}
+{%- comment -%}
+  This section is used as markup for the recommendations module
+{%- endcomment -%}
+
+  <div class="product-page {{ base_class }}__wrapper">
+    <div class="{{ base_class }}__inner">
+      <div class="{{ base_class }}__content">
+        <h2>{{ 'product.customers_also_bought' | t }}</h2>
+      </div>
+      <div class="{{ base_class }}__slider__wrapper swiper">
+        <div class="{{ base_class }}__product-list swiper-wrapper">
+        {% if recommendations.performed %}
+            {% if recommendations.products_count > 0 %}
+                {% for product in recommendations.products %}
+                  <div class="swiper-slide">
+                    {% render 'product-card', product: product %}
+                  </div>
+                {% endfor %}
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="{{ base_class }}__navigation">
+          <div class="{{ base_class }}__navigation__container">
+            <div class="{{ base_class }}__navigation__button {{ base_class }}__navigation__button--next">
+              {% render 'icons', icon: 'arrow-right' %}
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+{% schema %}
+{
+  "name": "Related Products Recos",
+  "class":"related-products-section-recos"
+} 
+{% endschema %}

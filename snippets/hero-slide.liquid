@@ -1,0 +1,171 @@
+<!--
+    NOTE: This is banner component that displays a box with text and cta button over the top of a hero image.
+    One image can be added along with a title, description and a call to action link.
+    You can edit the styles for this component in src/css/components/_hero-slide.scss
+-->
+
+{% comment %}
+  This snippet should be used inside the hero slider component on the homepage or or inside a hero slide section.
+
+  Usage :
+  {% render 'hero-slide, 
+    desktop_image: image, 
+    mobile_image: image, 
+    colour: '#fff',
+    text_colour: '#000',
+    title: text, 
+    subtitle: text, 
+    blurb: text,
+    cta_text: text,
+    cta_link: text,
+    button_colour: #FFF, 
+    button_hover_color: #000, 
+    button_text_colour: #000,
+    button_text_hover_colour: #FFF,
+    id: section.id
+    %}
+
+{% endcomment %}
+
+{% liquid
+  assign class_list = "hero-slide"
+  assign loading = loading | default: 'eager'
+  if position == 'left'
+    assign alignment = "flex-start"
+    elsif position == 'right'
+      assign alignment = "flex-end"
+      else
+        assign alignment = "center"
+    endif
+%}
+
+<style>
+    .custom-{{ id }}__overlay {
+        background: {{ overlay }};
+    }
+    .custom-{{ id }}-content {
+        background: {{ colour }};
+    }
+    .custom-{{ id }}-text {
+        color: {{ text_colour }};
+    }
+    .custom-{{ id }}-button {
+        background-color: {{ button_colour }};
+        color: {{ button_text_colour }};
+    }
+    .custom-{{ id }}-button:hover {
+        background-color: {{ button_hover_color }};
+        color: {{ button_text_hover_colour }};
+    }
+    .custom-{{ id }}-content__container {
+        justify-content: {{ alignment }};
+    }
+    .custom-{{ id }}-content__container .hero-slide__content{
+        align-items: {{ alignment }};
+    }
+    {% if alignment == "flex-start" %}
+    .custom-{{ id }}-content__container .hero-slide__blurb{
+        text-align:left;
+    }
+    {% endif %}
+    @media (max-width: 821px) {
+        .custom-{{ id }}-content__container {
+            justify-content: center;
+        }
+    }
+</style>
+
+{% if cta_link != blank %}
+<a href="{{ cta_link }}" style="text-decoration: none;">
+{% endif %}
+
+    <div class="{{ class_list }}">
+        
+        {% if show_overlay %}
+        <div class="{{ class_list }}__overlay custom-{{ id }}__overlay"></div>
+        {% endif %}
+
+            {% liquid 
+                if template contains 'collection' or template contains 'page' or letterbox == true
+                    assign image_height = 500
+                else
+                    assign image_height = 1000
+                endif 
+            %}
+
+        {% if desktop_image %}
+            
+            <div class="hero-slide__image-container">
+                {{ desktop_image
+                | image_url: width: desktop_image.width
+                | image_tag:
+                    alt: desktop_image.alt,
+                    width: 1500,
+                    height: image_height,
+                    class: 'desktop_image',
+                    loading: loading,
+                    sizes: '(min-width: 750px) 100vw, 100vw'
+                }}
+            </div>
+        {% else %}
+            <div class="hero-slide__image-container">
+                <img height="{{ image_height }}" width="1500" src="https://picsum.photos/1500/{{ image_height }}" alt="placeholder" class="desktop_image">
+            </div>
+        {% endif %}
+        
+        {% if mobile_image %}
+        <div class="hero-slide__image-container--mobile">
+            
+            {{ mobile_image
+                | image_url: width: mobile_image.width
+                | image_tag:
+                  alt: mobile_image.alt,
+                  width: 1500,
+                  height: image_height,
+                  class: 'hero-slide__image--mobile',
+                  loading: loading,
+                  sizes: '(min-width: 750px) 100vw, 100vw'
+            }}
+
+        </div>
+        {% endif %}
+
+        {% if show_content_box %}
+        <div class="custom-{{ id }}-content__container hero-slide__content-container ">
+            <div class="hero-slide__content custom-{{ id }}-content">
+                {% if subtitle != blank %}
+                <span class="hero-slide__subtitle custom-{{ id }}-text">{{ subtitle }}</span>
+                {% endif %}
+
+                {% if title != blank %}
+                    {% if h1 %}
+                        <h1 class="hero-slide__title custom-{{ id }}-text">{{ title }}</h1>
+                    {% else %}
+                        <h2 class="hero-slide__title custom-{{ id }}-text">{{ title }}</h2>
+                    {% endif %}
+                {% endif %}
+
+                {% if blurb != "" %}
+                    {% if h1 %}
+                        <h2 class="p hero-slide__blurb custom-{{ id }}-text">{{ blurb }}</h2>
+                    {% else %}
+                        {% if newsletter %}
+                            <div class="p hero-slide__blurb custom-{{ id }}-text">{{ blurb }}</div>
+                        {% else %}
+                            <h3 class="p hero-slide__blurb custom-{{ id }}-text">{{ blurb }}</h3>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                
+                {% if cta_text != blank %}
+
+                    <button class="button hero-slide__cta custom-{{ id }}-button">{{ cta_text }}</button>
+
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% if cta_link != blank %}
+</a>
+{% endif %}

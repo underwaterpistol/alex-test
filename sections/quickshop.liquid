@@ -1,0 +1,73 @@
+<!--
+  NOTE: This is the default quickshop template.
+  You can replace it with a template from the component bank -
+  or your own code. You should also replace src/css/unique/_quickshop.scss
+-->
+
+<div class="quickshop">
+
+  <div class="quickshop__header">
+    <div class="quickshop__close-container">
+      <div class="quickshop__close" data-close-modal>
+        <span class="quickshop__close-icon">&times;</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quickshop__body">
+    <div class="quickshop__media">
+      {% assign quickshop_media_class = 'quickshop__media' %}
+      {% render 'product-media-slider', product: product, base_class: quickshop_media_class, variant_change_behavior: section.settings.variant_change_behavior %}
+    </div>
+
+    <div class="quickshop__info-wrapper">
+      <div class="quickshop__title-info">
+        {% render 'product-title-info', product: product, base_class: 'quickshop' %}
+      </div>
+      <div class="quickshop__info">
+        {% render 'product-form' %}
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    // Handle add to cart submit
+    const quickshopForm = document.querySelector(".quickshop form[action^='/cart/add']");
+    if (quickshopForm) {
+      quickshopForm.addEventListener("submit", Cart.handleAtcSubmit);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quickshop",
+  "settings": [
+    {
+      "type": "select",
+      "id": "variant_change_behavior",
+      "label": "Variant change behavior",
+      "default": "scroll-to-variant-image",
+      "options": [
+        {
+          "value": "scroll-to-variant-image",
+          "label": "Scroll to variant image"
+        },
+        {
+          "value": "replace-slides",
+          "label": "Replace slides"
+        },
+        {
+          "value": "none",
+          "label": "No action"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

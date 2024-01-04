@@ -1,0 +1,35 @@
+{% assign base_class = "article-card" %}
+{% liquid 
+    if block.settings.blog_title  
+        assign blog_title = block.settings.blog_title  
+    else 
+        assign blog_title_split = article.url | split: "/"
+        assign blog_title = blog_title_split[2] | upcase
+    endif
+    if section.settings.article_cta  
+        assign article_cta = section.settings.article_cta 
+    endif
+%}
+
+<a class="{{ base_class }}" href="{{ article.url }}">
+    <div class="{{ base_class }}__image-container">
+        {% if article.image %}
+            {{ article.image
+                | image_url: width: article.image.width
+                | image_tag:
+                alt: article.image.alt,
+                width: 600,
+                height: 600,
+                class: 'article-card__image',
+                loading: 'lazy',
+                sizes: '(min-width: 750px) 25vw, 100vw'
+            }}
+        {% else %}
+            <img width="600" height="600" src="https://picsum.photos/600/600" alt="" class="article-card__image" />
+        {% endif %}
+
+    </div>
+    <div class="{{ base_class }}__meta">{% render 'article-published-date', article : article %} | {{ blog_title }} | {% render 'article-reading-time', content: article.content.size %}</div>
+    <h2 class="{{ base_class }}__title">{{ article.title }}</h2>
+    <span class="{{ base_class }}__cta" >{% render 'icons', icon: "arrow-right" %} {{ article_cta }}</span>
+</a>
